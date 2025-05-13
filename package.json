@@ -1,0 +1,51 @@
+{
+  "name": "@chris-c-brine/form-dialog",
+  "version": "1.0.0",
+  "description": "Easy Form Dialogs with a persistable state!",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "form-dialog",
+    "typescript",
+    "zustand",
+    "react-hook-form",
+    "react-hook-form-mui",
+    "@mui/material",
+    "@mui/material-icons",
+    "private"
+  ],
+  "author": "Christopher Brine",
+  "private": true,
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "peerDependencies\n": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.1.0",
+    "@mui/material": "^7.1.0",
+    "lodash": "^4.17.21",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.56.2",
+    "react-hook-form-mui": "^7.6.0",
+    "zustand": "^5.0.4"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/lodash": "4.17.16",
+    "@types/react": "^18.0.0",
+    "rollup": "^4.9.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "typescript": "^5.0.0"
+  }
+}

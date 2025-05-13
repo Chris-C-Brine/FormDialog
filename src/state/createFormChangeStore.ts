@@ -1,0 +1,54 @@
+// src/state/createFormChangeStore.ts
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
+import type { FieldValue, FieldValues } from "react-hook-form";
+
+export interface FormStore<T extends FieldValues> {
+  formData: Partial<Record<keyof T, FieldValue<T>>>; // Keys from `T`
+  updateFormData: <K extends keyof T>(key: K, value: FieldValue<T>) => void; // Enforces `key` exists in `T`
+  resetFormData: (key?: keyof T) => void;
+}
+
+const storage = createJSONStorage(() => {
+  try {
+    return sessionStorage;
+  } catch (e) {
+    return localStorage;
+  }
+});
+
+/**
+ * Factory function to create a form store with a custom storage name.
+ *
+ * @param storeName - Unique name for sessionStorage/localStorage key.
+ * @returns Zustand store with form data.
+ */
+export const createFormChangeStore = (storeName: string) =>
+  create<FormStore<FieldValues>>()(
+    persist(
+      (set) => ({
+        formData: {},
+        updateFormData: (key, value) => {
+          return set((state) => ({
+            formData: { ...state.formData, [key]: value },
+          }));
+        },
+        resetFormData: (key) => {
+          return set((state) => {
+            if (key) {
+              /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+              const { [key]: _, ...remaining } = state.formData;
+              return { formData: remaining };
+            }
+            return { formData: {} };
+          });
+        },
+      }),
+      {
+        storage: storage,
+        name: storeName, // Key for sessionStorage
+      }
+    )
+  );
+
+export default createFormChangeStore;
