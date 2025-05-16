@@ -79,7 +79,7 @@ export default LoginFormBase;
 /**
  * Inputs
  */
-const UserName = memo(({ disabled }: Pick<PasswordElementProps, "disabled">) => (
+const UserName = ({ disabled }: Pick<PasswordElementProps, "disabled">) => (
     <TextFieldElement
         name="username"
         label="Username"
@@ -94,7 +94,7 @@ const UserName = memo(({ disabled }: Pick<PasswordElementProps, "disabled">) => 
             inputLabel: { shrink: true },
         }}
     />
-));
+);
 
 UserName.displayName = "UserName";
 

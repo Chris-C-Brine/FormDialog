@@ -3,9 +3,9 @@ import { useCallback, useState } from "react";
 
 export interface UseDialogProps {
   /** Initial open state of the dialog */
-  open: boolean,
+  open?: boolean,
   /** Whether to keep the dialog mounted when closed */
-  keepMounted: boolean
+  keepMounted?: boolean
 }
 
 /**
@@ -20,12 +20,13 @@ export interface UseDialogProps {
  * const { openDialog, closeDialog, dialogProps } = useDialog();
  * return (<>
  *   <Button onClick={openDialog}>Open Dialog</Button>
- *   <Dialog {...dialogProps}>Dialog content</Dialog>
+ *   <BaseDialog {...dialogProps}>Dialog Content</BaseDialog>
  * </>);
  *
  * @example
  * // With initial configuration
- * const { dialogProps } = useDialog({ open: true, keepMounted: false });
+ * const { dialogProps } = useDialog({ keepMounted: false });
+ *
  *
  * @param props - Optional configuration options
  */
