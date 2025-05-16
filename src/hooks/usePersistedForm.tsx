@@ -15,7 +15,41 @@ export interface PersistedFormProviderProps {
   formName: string | undefined;
 }
 
-const usePersistedForm = ({ formName = "" }: PersistedFormProviderProps) => {
+/**
+ * Hook that enables form state persistence across sessions
+ *
+ * This hook connects a form to persistent storage (e.g., sessionStorage)
+ * allowing form values to be preserved when navigating away and returning.
+ * It works by watching form changes and syncing with a zustand store.
+ *
+ * Key features:
+ * - Persists form values during navigation or page reloads
+ * - Automatically restores saved values when form is rendered
+ * - Debounced updates to avoid excessive storage operations
+ * - Only saves changed fields, not the entire form state
+ * - Automatically clears storage when form values match defaults
+ *
+ * @example
+ * // In a form component:
+ * const MyPersistedForm = () => {
+ *   const formMethods = useForm({ defaultValues: { name: '' } });
+ *   // Connect the form to persistence
+ *   usePersistedForm({ formName: 'user-registration' });
+ *
+ *   return (<FormProvider {...formMethods}>
+ *     <TextFieldElement name="name" label="Name" />
+ *   </FormProvider>);
+ * }
+ *
+ * @example
+ * // For convenience, use with the PersistForm wrapper component:
+ * <PersistForm formName="user-profile">
+ *   <ProfileFormFields />
+ * </PersistForm>
+ *
+ * @param props - Configuration options
+ */
+export const usePersistedForm = ({ formName = "" }: PersistedFormProviderProps) => {
   const { setValue, watch, formState } = useFormContext();
   const { formData, updateFormData, resetFormData } = createFormChangeStore(formName)();
   const { open, disabled } = useFormDialog();
@@ -59,7 +93,3 @@ const usePersistedForm = ({ formName = "" }: PersistedFormProviderProps) => {
     }
   });
 };
-
-usePersistedForm.displayName = "usePersistedForm";
-
-export default usePersistedForm;

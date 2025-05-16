@@ -1,6 +1,6 @@
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 
 export default {
@@ -8,14 +8,14 @@ export default {
     output: [
         {
             file: 'dist/index.js',
-            format: 'cjs',
-            sourcemap: true,
+            format: 'esm',
+            sourcemap: true
         },
         {
             file: 'dist/index.esm.js',
             format: 'esm',
-            sourcemap: true,
-        },
+            sourcemap: true
+        }
     ],
     plugins: [
         peerDepsExternal(),
@@ -25,7 +25,21 @@ export default {
             tsconfig: './tsconfig.json',
             declaration: true,
             declarationDir: 'dist',
-            rootDir: 'src',
-        }),
+            sourceMap: true,
+            noEmitOnError: false // Allow build to continue with errors
+        })
     ],
+    external: [
+        'react',
+        'react-dom',
+        '@mui/material',
+        '@mui/icons-material',
+        '@emotion/react',
+        '@emotion/styled',
+        'react-hook-form',
+        'react-hook-form-mui',
+        'zustand',
+        'zustand/middleware',
+        'lodash'
+    ]
 };

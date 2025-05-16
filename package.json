@@ -1,51 +1,58 @@
 {
   "name": "@chris-c-brine/form-dialog",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Easy Form Dialogs with a persistable state!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
-    "prepublishOnly": "npm run build"
+    "build": "rollup -c",
+    "prepare": "npm run build"
   },
   "keywords": [
-    "form-dialog",
+    "RHF Dialog",
+    "Persisable Dialogs",
     "typescript",
     "zustand",
-    "react-hook-form",
-    "react-hook-form-mui",
-    "@mui/material",
-    "@mui/material-icons",
-    "private"
+    "react-hook-form-mui"
   ],
   "author": "Christopher Brine",
-  "private": true,
-  "publishConfig": {
-    "access": "restricted"
-  },
-  "peerDependencies\n": {
+  "peerDependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.1.0",
     "@mui/material": "^7.1.0",
     "lodash": "^4.17.21",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "react-hook-form": "^7.56.2",
     "react-hook-form-mui": "^7.6.0",
     "zustand": "^5.0.4"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^25.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.0",
-    "@rollup/plugin-typescript": "^11.0.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.1.0",
+    "@mui/material": "^7.1.0",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@types/lodash": "4.17.16",
-    "@types/react": "^18.0.0",
-    "rollup": "^4.9.0",
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.5",
+    "lodash": "^4.17.21",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-hook-form": "^7.56.3",
+    "react-hook-form-mui": "^7.6.0",
+    "rollup": "^4.40.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
-    "typescript": "^5.0.0"
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.3",
+    "zustand": "^5.0.4",
+    "@types/node": "^22.15.17"
   }
 }

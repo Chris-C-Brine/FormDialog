@@ -2,17 +2,59 @@
 import { Badge } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import { LoadingButton,  type LoadingButtonProps } from "./LoadingButton";
-import { memo, useCallback } from "react";
+import { memo } from "react";
 import { useFormDialog } from "../../hooks";
 
-
+/**
+ * Props for the FormSubmitButton component
+ */
 export type FormSubmitButtonProps = Omit<LoadingButtonProps, "onClick"> & {
+  /**
+   * Whether to show the submission attempt count badge
+   */
   showAttempts?: boolean;
+
+  /**
+   * Maximum number of submission attempts allowed
+   * When reached, the button displays a visual indicator
+   */
   maxAttempts?: number;
 };
 
 /**
- * Form Submit Button
+ * A submit button for forms with loading state, attempt tracking and form context awareness
+ *
+ * This component extends the LoadingButton with form-specific features:
+ * - Automatically displays loading state during form submission
+ * - Tracks and displays submission attempt count (optional)
+ * - Supports maximum attempts with visual indicators
+ * - Integrates with FormDialog context for form-wide disabled state
+ *
+ * The button automatically handles disabled states based on:
+ * - Form submission status
+ * - Form loading status
+ * - Explicit-disabled prop
+ * - Form-wide disabled state from FormDialogContext
+ *
+ * @example
+ * // Basic usage
+ * <FormSubmitButton />
+ *
+ * @example
+ * // With custom text and max attempts
+ * <FormSubmitButton maxAttempts={3}>
+ *   Submit Form
+ * </FormSubmitButton>
+ *
+ * @example
+ * // With visible attempt counter and custom props
+ * <FormSubmitButton
+ *   showAttempts
+ *   color="secondary"
+ *   fullWidth
+ * >
+ *   Save Changes
+ * </FormSubmitButton>
  */
 export const FormSubmitButton = memo(function ({
   showAttempts,
@@ -25,11 +67,6 @@ export const FormSubmitButton = memo(function ({
   const disabled = formState.isSubmitting || formState.isLoading || props.disabled || disabledForm;
   const hasMaxAttempts = maxAttempts && isFinite(maxAttempts);
 
-  const handleOnClick = useCallback(() => {
-    if (disabled) return;
-    console.log(getValues());
-  }, [disabled, getValues]);
-
   return (
     <LoadingButton
       loading={!formState.isSubmitting || formState.isLoading}
@@ -38,7 +75,6 @@ export const FormSubmitButton = memo(function ({
       size="large"
       disabled={disabled}
       {...props}
-      onClick={handleOnClick}
     >
       {
         <Badge

@@ -1,22 +1,46 @@
 // src/components/FormDialog.tsx
 import { useCallback,  useMemo } from "react";
 import { BaseDialog, type BaseDialogProps } from "./BaseDialog";
-import { PaperForm } from "./PaperForm";
+import { PaperForm } from "../forms/PaperForm";
 import { type FieldValues, type FormContainerProps } from "react-hook-form-mui";
 import { IconButton, type PaperProps } from "@mui/material";
-import { FormDialogProvider } from "../state/FormDialogProvider";
+import { FormDialogProvider } from "../../state/FormDialogProvider";
 import { merge } from "lodash";
 import { Close as CloseIcon } from "@mui/icons-material";
 
+
 /**
- * Props for the FormDialog component. Inherits from BaseDialogProps and adds formProps.
- * @param formProps - Props for the FormContainer component from react-hook-form-mui.
- * @returns The FormDialog component.
+ * Props for the FormDialog component
  */
 export type FormDialogProps<T extends FieldValues> = Omit<BaseDialogProps, "PaperComponent"> & {
+  /**
+   * Form methods from useForm hook
+   * Establish the form context for child components
+   */
   formProps: FormContainerProps<T>;
 };
 
+/**
+ * A dialog component specialized for forms with integrated context providers
+ *
+ * FormDialog combines Material UI dialog functionality with React Hook Form,
+ * creating a comprehensive solution for modal forms. It provides context
+ * providers for form state management, dialog controls, and accessibility.
+ *
+ * Key features:
+ * - Integrates React Hook Form with Material UI dialogs
+ * - Provides form state management through FormProvider
+ * - Establishes dialog context through FormDialogProvider
+ * - Handles form submission and error states
+ * - Supports loading states for form operations
+ * - Maintains consistent styling and behavior
+ *
+ * Child components can access the form and dialog context through hooks:
+ * - useFormContext() - Access form methods and state
+ * - useFormState() - Access form validation state
+ * - useFormDialog() - Access dialog controls and state
+ *
+ */
 export const FormDialog = <T extends FieldValues,>({
   formProps,
   children,
@@ -47,8 +71,6 @@ export const FormDialog = <T extends FieldValues,>({
       ),
     [dialogProps]
   );
-
-
 
   return (
     <FormDialogProvider open={open} closeDialog={onClose}>
