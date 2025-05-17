@@ -1,9 +1,8 @@
 // src/components/BlackoutDialog.tsx
 import { Dialog, type DialogProps } from "@mui/material";
-import { type FC, type PropsWithChildren } from "react";
+import { type FC } from "react";
 
-export type BlackoutDialogProps = DialogProps &
-  Partial<PropsWithChildren> & {
+export type BlackoutDialogProps = Omit<DialogProps, "title"> & {
     /**
      * An optional unique string identifier
      * @default 'blackout-dialog'
@@ -32,13 +31,12 @@ export const BlackoutDialog: FC<BlackoutDialogProps> = ({
   id = "blackout-dialog",
   children,
   sx,
-  keepMounted = true,
   ...props
 }) => {
   const sxProps = blackout ? { ...sx, backgroundColor: "black" } : sx;
 
   return (
-    <Dialog open={open} id={id} keepMounted={keepMounted} {...props} sx={sxProps}>
+    <Dialog open={open} id={id} {...props} sx={sxProps}>
       {children}
     </Dialog>
   );

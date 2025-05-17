@@ -9,6 +9,7 @@ export * from "./forms/PersistForm"
 export * from "./buttons/FormCancelButton";
 export * from "./buttons/FormSubmitButton";
 export * from "./buttons/FormResetButton";
+export * from "./buttons/LoadingButton";
 
 // Layouts
 export * from "./dialogs/FormDialogActions"

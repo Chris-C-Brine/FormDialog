@@ -24,7 +24,6 @@ export type FormCancelButtonProps = Omit<ButtonProps, "onClick"> & {
  *   children="Go Back"
  * />
  */
-
 export const FormCancelButton = memo(function (props?: FormCancelButtonProps) {
     const {closeDialog} = useFormDialog();
 

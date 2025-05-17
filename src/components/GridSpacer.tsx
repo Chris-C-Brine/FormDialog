@@ -41,4 +41,4 @@ import type { FC } from "react";
  *   </Grid>
  * </Grid>
  */
-export const GridSpacer: FC = () => <Grid flex="1 0 0" />;
+export const GridSpacer: FC = () => <Grid flex="1 0 0" sx={{w: 0}} />;

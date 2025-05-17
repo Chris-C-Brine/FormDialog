@@ -36,9 +36,6 @@ export type FormSubmitButtonProps = Omit<LoadingButtonProps, "onClick"> & {
  * - Explicit-disabled prop
  * - Form-wide disabled state from FormDialogContext
  *
- * @example
- * // Basic usage
- * <FormSubmitButton />
  *
  * @example
  * // With custom text and max attempts
@@ -69,7 +66,7 @@ export const FormSubmitButton = memo(function ({
 
   return (
     <LoadingButton
-      loading={!formState.isSubmitting || formState.isLoading}
+      loading={formState.isSubmitting || formState.isLoading}
       variant="contained"
       type="submit"
       size="large"

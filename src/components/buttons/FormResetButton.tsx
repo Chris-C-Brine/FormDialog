@@ -5,7 +5,6 @@ import { memo, useCallback} from "react";
 import { useFormContext, useFormState } from "react-hook-form-mui";
 import { createFormChangeStore } from "../../state/createFormChangeStore";
 import { useFormDialog } from "../../hooks";
-import { useParentTheme } from "../../utils/ThemeBridge";
 
 /**
  * Props for the FormResetButton component
@@ -41,10 +40,6 @@ export type FormResetButtonProps = Omit<ButtonProps, "onClick"> & {
  * - Form-wide disabled state from FormDialogContext
  *
  * @example
- * // Basic usage
- * <FormResetButton />
- *
- * @example
  * // With persistence integration
  * <FormResetButton formKey="user-profile-form" />
  *
@@ -65,7 +60,6 @@ export const FormResetButton = memo(function (props?: FormResetButtonProps) {
   const { reset } = useFormContext();
   const { isSubmitting, isLoading, isDirty } = useFormState();
   const { disabled: disabledForm } = useFormDialog();
-  const parentTheme = useParentTheme();
 
   const keepSubmitCount = !!props?.keepCount;
 

@@ -4,7 +4,7 @@ import { DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import { BlackoutDialog, type BlackoutDialogProps } from "./BlackoutDialog";
 import type { DialogContentProps, DialogTitleProps, DialogActionsProps } from "@mui/material";
 
-export type BaseDialogProps = Omit<BlackoutDialogProps, "children" | "title" | "content"> & {
+export type BaseDialogProps = BlackoutDialogProps & {
   /**
    * Title content for the dialog
    * When provided, renders a DialogTitle component
@@ -16,12 +16,6 @@ export type BaseDialogProps = Omit<BlackoutDialogProps, "children" | "title" | "
    * Only applied when title is provided
    */
   titleProps?: DialogTitleProps;
-
-  /**
-   * Main content of the dialog
-   * When provided, renders a DialogContent component
-   */
-  children?: ReactNode;
 
   /**
    * Props passed to the DialogContent component
@@ -67,27 +61,11 @@ export type BaseDialogProps = Omit<BlackoutDialogProps, "children" | "title" | "
  * consistent styling and behavior.
  *
  * @example
- * // Basic usage with all sections
- * <BaseDialog
- *   open={open}
- *   onClose={handleClose}
- *   title="Confirmation"
- *   actions={
- *     <>
- *       <Button onClick={handleCancel}>Cancel</Button>
- *       <Button onClick={handleConfirm}>Confirm</Button>
- *     </>
- *   }
- * >
- *   Are you sure you want to proceed?
- * </BaseDialog>
- *
- * @example
  * // Customized with section props
  * <BaseDialog
  *   open={isOpen}
  *   title="Advanced Settings"
- *   titleProps={{ sx: { bgcolor: 'primary.main', color: 'white' } }}
+ *   titleProps={{ sx: { backgroundColor: 'primary.main', color: 'white' } }}
  *   contentProps={{ sx: { p: 3 } }}
  *   actionsProps={{ sx: { justifyContent: 'space-between' } }}
  *   actions={<SettingsDialogActions />}

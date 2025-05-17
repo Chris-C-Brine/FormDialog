@@ -11,7 +11,7 @@ import {applyDefaultFormDialogProps} from "../../utils";
 /**
  * Props for the FormDialogActions component
  */
-export type FormDialogActionsProps = PropsWithChildren & {
+export type FormDialogActionsProps = Partial<PropsWithChildren> & {
     /**
      * Props to customize the cancel button
      */
