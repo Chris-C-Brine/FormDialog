@@ -23,7 +23,7 @@ export type FormDialogActionsProps = Partial<PropsWithChildren> & {
     resetProps?: FormResetButtonProps;
 
     /**
-     * Props to customize the submit button
+     * Props to customize the "submit button"
      */
     submitProps?: FormSubmitButtonProps;
 

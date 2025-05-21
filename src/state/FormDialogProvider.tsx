@@ -1,7 +1,7 @@
 // src/components/dialogs/FormDialog/state/FormDialogProvider.tsx
-import {useState, type FC, type PropsWithChildren} from "react";
+import {useState, type FC, type PropsWithChildren } from "react";
 import {FormDialogContext, type  FormDialogContextType} from "./FormDialogContext";
-import {ThemeBridge} from '../utils/ThemeBridge';
+import {ThemeBridge} from '../utils';
 
 /**
  * Props for the FormDialogProvider component

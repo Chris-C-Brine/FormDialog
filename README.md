@@ -42,91 +42,55 @@ This package has the following peer dependencies that need to be installed in yo
 
 ```tsx
 // LoginPage.tsx
-import { useCallback, type FC, type PropsWithChildren } from "react";
+import { type FC } from "react";
 import { Container, IconButton } from "@mui/material";
-import { globalErrorAtom, useUser } from "@features";
 import { useDialog } from "@chris-c-brine/form-dialog";
-import { useForm, type SubmitHandler } from "react-hook-form-mui";
+import LoginForm from "./components/forms/LoginForm";
+import { Lock as LockIcon } from "@mui/icons-material";
 import { LoginDialog } from "./LoginDialog";
-import LoginForm from ".//LoginForm";
-import { Lock as LockIcon, Person as PersonIcon } from "@mui/icons-material";
-import { useSetAtom } from "jotai";
 
-const defaultLoginFormValues = { username: "", password: "" };
-type SubmitLogin = SubmitHandler<typeof defaultLoginFormValues>;
 const LoginPage: FC = () => {
-  const { dialogProps, closeDialog, openDialog } = useDialog();
-  const { setUser } = useUser();
-  const setError = useSetAtom(globalErrorAtom);
-
-  const formContext = useForm({ defaultValues: defaultLoginFormValues });
-
-  const onSuccess: SubmitLogin = useCallback(
-    (data, event) => {
-      event?.preventDefault(); // Stop default html form submit
-      formContext.reset(); // Reset form
-      setUser({ name: data.username, isActive: true }); // Update User (and/or other business logic)
-      closeDialog(); // Close Dialog
-      setError({
-        message: <>Hello {data.username}!</>,
-        title: 'Successful Login!',
-        severity: "success",
-        icon: <PersonIcon sx={{fontSize: 35}} />
-      });
-    },
-    [formContext, setUser, closeDialog, setError],
-  );
+  const { dialogProps, openDialog } = useDialog();
 
   return (
-    <LoginFormContainer>
-      <LoginForm onSuccess={onSuccess}>
+    <Container
+      component="main"
+      maxWidth={"xs"}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "85vh",
+        overflow: "hidden",
+        animation: "fadeIn 1s ease-in-out",
+        "@keyframes fadeIn": {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
+      }}
+    >
+      <LoginForm>
         <IconButton color="primary" onClick={openDialog} sx={{ py: 1 }}>
           <LockIcon sx={{ fontSize: 50 }} />
         </IconButton>
       </LoginForm>
-      <LoginDialog
-        dialogProps={{ ...dialogProps }}
-        handleSubmit={onSuccess}
-        onClose={closeDialog}
-      />
-    </LoginFormContainer>
+      <LoginDialog dialogProps={dialogProps} />
+    </Container>
   );
 };
 
 export default LoginPage;
-
-const LoginFormContainer: FC<PropsWithChildren> = ({ children }) => (
-  <Container
-    component="main"
-    maxWidth={"xs"}
-    sx={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      height: "85vh",
-      overflow: "hidden",
-      animation: "fadeIn 1s ease-in-out",
-      "@keyframes fadeIn": {
-        from: { opacity: 0 },
-        to: { opacity: 1 },
-      },
-    }}
-  >
-    {children}
-  </Container>
-);
 ```
 ```tsx
 // LoginPageConstants.ts
 import type { SubmitHandler } from "react-hook-form";
 
 export const defaultLoginFormValues = { username: "", password: "" };
-export type LoginForm = typeof defaultLoginFormValues;
-export type SubmitLogin = SubmitHandler<LoginForm>;
+export type LoginFormValues = typeof defaultLoginFormValues;
 ```
 ```tsx
 // LoginFormBase.tsx
-import {TextFieldElement, PasswordElement, type PasswordElementProps, useFormContext} from "react-hook-form-mui";
+import { TextFieldElement, PasswordElement, type PasswordElementProps, useFormContext} from "react-hook-form-mui";
 import { memo, useEffect } from "react";
 import { useFormDialog, AutoGrid, type AutoGridProps } from "@chris-c-brine/form-dialog";
 
@@ -177,6 +141,7 @@ const UserName = ({ disabled }: Pick<PasswordElementProps, "disabled">) => (
     }}
   />
 );
+UserName.displayName = "UserName";
 
 const Password = ({ disabled }: Pick<PasswordElementProps, "disabled">) => {
   const { setValue, getValues } = useFormContext();
@@ -184,7 +149,7 @@ const Password = ({ disabled }: Pick<PasswordElementProps, "disabled">) => {
 
   useEffect(() => {
     if (disabled && password !== "") {
-      setValue("passwordDisabled", "");
+      setValue("disabledPassword", "");
     }
   }, [disabled, setValue, password]);
 
@@ -205,26 +170,29 @@ const Password = ({ disabled }: Pick<PasswordElementProps, "disabled">) => {
     />
   );
 };
+
+Password.displayName = "Password";
 ```
 ```tsx
 // LoginForm.tsx
 import { Lock as LockIcon } from "@mui/icons-material";
 import { Box, Typography, type TypographyProps } from "@mui/material";
-import { type SubmitLogin, defaultLoginFormValues } from "./LoginPageConstants";
-import LoginFormBase from "./LoginFormBase";
 import { merge } from "lodash";
-import type { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, useCallback, useMemo } from "react";
 import { FormDialogActions, FormDialogProvider, PaperForm } from "@chris-c-brine/form-dialog";
+import { SubmitHandler, useForm } from "react-hook-form-mui";
+import { defaultLoginFormValues, LoginFormValues } from "./LoginPageConstants";
+import LoginFormBase from "./LoginFormBase";
+import { globalErrorAtom, useUser } from "@features";
+import { useSetAtom } from "jotai/index";
+import {  Person as PersonIcon } from "@mui/icons-material";
 
 const AltIcon = () => <LockIcon sx={{ mr: 1, fontSize: 20 }} />;
 
-interface LoginFormProps extends PropsWithChildren {
-  onSuccess: SubmitLogin;
-}
+export const LoginForm: FC<PropsWithChildren> = ({ children }) => {
 
-const LoginForm: FC<LoginFormProps> = ({ onSuccess, children }) => {
   return (
-    <LoginPaperForm onSuccess={onSuccess}>
+    <LoginPaperForm>
       <Box px={2}>
         {children}
         <SecureLoginText />
@@ -243,8 +211,6 @@ const LoginForm: FC<LoginFormProps> = ({ onSuccess, children }) => {
   );
 };
 
-export default LoginForm;
-
 const SecureLoginText: FC<TypographyProps> = (props) => {
   const typographyProps = merge(
     {
@@ -257,18 +223,38 @@ const SecureLoginText: FC<TypographyProps> = (props) => {
   return <Typography {...typographyProps}>Secure Login</Typography>;
 };
 
-type LoginPaperFormProps = PropsWithChildren & {
-  onSuccess?: SubmitLogin;
-};
+const LoginPaperForm: FC<PropsWithChildren> = ({ children }) => {
+  const formContext = useForm({defaultValues: defaultLoginFormValues});
+  const { setUser } = useUser();
+  const setError = useSetAtom(globalErrorAtom);
+  const reset = useMemo(() => formContext.reset, [formContext?.reset]);
 
-const LoginPaperForm: FC<LoginPaperFormProps> = ({ children, onSuccess }) => {
+  const onSuccess: SubmitHandler<LoginFormValues> = useCallback(
+    (data, event) => {
+      event?.preventDefault(); // Stop default html form submit
+      event?.stopPropagation(); // STOP!!!!!
+
+      setUser({ name: data.username, isActive: true }); // Update User (and/or other business logic)
+      reset(); // reset form
+      setError({ // Signal Success!
+        message: <>Hello {data.username}!</>,
+        title: "Successful Login!",
+        severity: "success",
+        icon: <PersonIcon sx={{ fontSize: 35 }} />,
+      });
+    }, [setUser, setError, reset]);
+
   return (
     <FormDialogProvider>
       <PaperForm
+        persistKey={'login-page-form'}
         formProps={{
-          defaultValues: defaultLoginFormValues,
+          formContext,
           onSuccess,
-          onError: (e) => console.log(e),
+          onError: (errors, event) => {
+            event?.preventDefault();
+            console.log(errors)
+          },
         }}
         elevation={3}
         sx={{
@@ -285,39 +271,63 @@ const LoginPaperForm: FC<LoginPaperFormProps> = ({ children, onSuccess }) => {
 ```
 ```tsx
 // LoginDialog.tsx
-import {useDialog, FormDialog, FormDialogActions, type FormDialogProps,  PersistForm } from "@chris-c-brine/form-dialog";
-import {  type FC } from "react";
-import { useForm } from "react-hook-form-mui";
+import { useDialog, FormDialog, FormDialogActions } from "@chris-c-brine/form-dialog";
+import { memo, useCallback, useMemo } from "react";
 import LoginFormBase from "./LoginFormBase";
-import {
-  defaultLoginFormValues,
-  type LoginForm,
-  type SubmitLogin,
-} from "./LoginPageConstants";
+import { defaultLoginFormValues, LoginFormValues } from "./LoginPageConstants";
+import { SubmitHandler, useForm } from "react-hook-form-mui";
+import { globalErrorAtom, useUser } from "@features";
+import { useSetAtom } from "jotai/index";
+import { Person as PersonIcon } from "@mui/icons-material";
 
 const formKey = "dialog-login-form";
 
-/* Basic Form Dialog Test */
-type LoginDialogProps = Pick<ReturnType<typeof useDialog>, "dialogProps"> &
-  Pick<FormDialogProps<LoginForm>, "onClose"> & {
-    handleSubmit: SubmitLogin;
-  };
+export type LoginDialogProps = {
+  dialogProps: ReturnType<typeof useDialog>["dialogProps"];
+};
 
-export const LoginDialog: FC<LoginDialogProps> = ({ dialogProps, handleSubmit }) => {
+export const LoginDialog = memo(function ({ dialogProps }: LoginDialogProps) {
+  const setError = useSetAtom(globalErrorAtom);
+  const { setUser } = useUser();
   const formContext = useForm({ defaultValues: defaultLoginFormValues });
+
+  const reset = useMemo(() => formContext.reset, [formContext?.reset]);
+
+  const onSuccess: SubmitHandler<LoginFormValues> = useCallback(
+    (data, event) => {
+      event?.preventDefault();
+      event?.stopPropagation();
+
+      console.log(event);
+      setUser({ name: data.username, isActive: true }); // Update User (and/or other business logic)
+      reset(); // reset form
+      setError({
+        // Signal Success!
+        message: <>Hello {data.username}!</>,
+        title: "Successful Login!",
+        severity: "success",
+        icon: <PersonIcon sx={{ fontSize: 35 }} />,
+      });
+      dialogProps?.onClose();
+    },
+    [setUser, setError, dialogProps, reset],
+  );
 
   return (
     <FormDialog
       {...dialogProps}
-      formProps={{ onSuccess: handleSubmit, formContext, onError: (e) => console.log(e) }}
+      persistKey={formKey}
+      formProps={{ onSuccess, formContext }}
       title={"Basic Persist Form Dialog Test"}
       titleProps={{ variant: "h5", textAlign: "center" }}
       actions={<FormDialogActions resetProps={{ formKey }} submitProps={{ maxAttempts: 3 }} />}
     >
-      <PersistForm formName={formKey}>
-        <LoginFormBase name={formKey} columnCount={2} />
-      </PersistForm>
+      <LoginFormBase columnCount={2} />
     </FormDialog>
   );
-};
+});
+
+LoginDialog.displayName = "LoginDialog";
+
+
 ```

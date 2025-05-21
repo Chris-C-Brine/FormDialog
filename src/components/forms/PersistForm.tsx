@@ -1,5 +1,6 @@
-import type { FC, PropsWithChildren } from "react";
-import { usePersistedForm } from "../../hooks";
+import {memo, type PropsWithChildren } from "react";
+import { usePersistForm } from "../../hooks";
+import {useFormContext} from "react-hook-form-mui";
 
 /**
  * Props for the PersistForm component
@@ -53,7 +54,10 @@ export interface PersistFormProps extends PropsWithChildren {
  *   </PersistForm>
  * </FormDialog>
  */
-export const PersistForm: FC<PersistFormProps> = ({ children, formName }) => {
-  usePersistedForm({ formName });
+export const PersistForm = memo(function ({ children, formName }: PersistFormProps) {
+  const formContext = useFormContext();
+  usePersistForm({ formName, formContext });
   return <>{children}</>;
-};
+});
+
+PersistForm.displayName = "PersistForm";

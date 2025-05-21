@@ -6,7 +6,7 @@ import { FormDialogContext } from "../state/FormDialogContext";
  * Hook for accessing the FormDialog context values and functions
  *
  * This hook provides access to the form dialog state and controls managed by
- * the FormDialogProvider. It allows components to interact with dialog state,
+ * the FormDialogProvider. It allows components to interact with the dialog state,
  * including open/close status and form-wide disabled state.
  *
  * The context provides:

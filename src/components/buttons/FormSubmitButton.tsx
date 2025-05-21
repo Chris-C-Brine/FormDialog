@@ -1,9 +1,9 @@
 // src/components/buttons/FormSubmitButton.tsx
 import { Badge } from "@mui/material";
-import { useFormContext } from "react-hook-form";
 import { LoadingButton,  type LoadingButtonProps } from "./LoadingButton";
 import { memo } from "react";
 import { useFormDialog } from "../../hooks";
+import {useFormState} from "react-hook-form-mui";
 
 /**
  * Props for the FormSubmitButton component
@@ -22,7 +22,7 @@ export type FormSubmitButtonProps = Omit<LoadingButtonProps, "onClick"> & {
 };
 
 /**
- * A submit button for forms with loading state, attempt tracking and form context awareness
+ * A "submit button" for forms with loading state, attempt tracking and form context awareness
  *
  * This component extends the LoadingButton with form-specific features:
  * - Automatically displays loading state during form submission
@@ -59,7 +59,7 @@ export const FormSubmitButton = memo(function ({
   children = "Save",
   ...props
 }: FormSubmitButtonProps) {
-  const { formState, getValues } = useFormContext();
+  const formState = useFormState();
   const { disabled: disabledForm } = useFormDialog();
   const disabled = formState.isSubmitting || formState.isLoading || props.disabled || disabledForm;
   const hasMaxAttempts = maxAttempts && isFinite(maxAttempts);

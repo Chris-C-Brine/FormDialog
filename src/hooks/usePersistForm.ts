@@ -1,18 +1,25 @@
 // src/state/FormStoreProvider.tsx
-import { useEffect } from "react";
-import { useFormContext } from "react-hook-form-mui";
+import {useEffect} from "react";
+import {FieldValues, Path, UseFormReturn} from "react-hook-form-mui";
 import createFormChangeStore from "../state/createFormChangeStore";
-import { debounce, isEmpty } from "lodash";
-import { useFormDialog } from "./useFormDialog";
-import { deepCompare } from "../utils";
-import { useOnMount } from "./useOnMount";
+import {debounce, isEmpty} from "lodash";
+import {useFormDialog} from "./useFormDialog";
+import {deepCompare} from "../utils";
+import {useOnMount} from "./useOnMount";
 
 
-export interface PersistedFormProviderProps {
+export type PersistedFormProviderProps<T extends FieldValues> = {
   /**
    * A unique key for the form
    */
   formName: string | undefined;
+
+  /**
+   * Represents the context of a form, which is used to manage the state and actions of the form.
+   * The context is typically provided by a form management library and used to handle form inputs,
+   * validation, and submission.
+   */
+  formContext: UseFormReturn<T, any, T> | UseFormReturn<T> | undefined;
 }
 
 /**
@@ -29,39 +36,26 @@ export interface PersistedFormProviderProps {
  * - Only saves changed fields, not the entire form state
  * - Automatically clears storage when form values match defaults
  *
- * @example
- * // In a form component:
- * const MyPersistedForm = () => {
- *   const formMethods = useForm({ defaultValues: { name: '' } });
- *   // Connect the form to persistence
- *   usePersistedForm({ formName: 'user-registration' });
- *
- *   return (<FormProvider {...formMethods}>
- *     <TextFieldElement name="name" label="Name" />
- *   </FormProvider>);
- * }
- *
- * @example
- * // For convenience, use with the PersistForm wrapper component:
- * <PersistForm formName="user-profile">
- *   <ProfileFormFields />
- * </PersistForm>
- *
- * @param props - Configuration options
  */
-export const usePersistedForm = ({ formName = "" }: PersistedFormProviderProps) => {
-  const { setValue, watch, formState } = useFormContext();
-  const { formData, updateFormData, resetFormData } = createFormChangeStore(formName)();
-  const { open, disabled } = useFormDialog();
+export const usePersistForm = <T extends FieldValues>({
+  formName = "",
+  formContext
+}: PersistedFormProviderProps<T>) => {
+
+  // const { setValue, watch, formState } = formContext;
+  const {formData, updateFormData, resetFormData} = createFormChangeStore(formName)();
+  const {disabled} = useFormDialog();
 
   const debouncedUpdate = debounce((key, values) => {
     updateFormData(key, values);
   }, 200);
 
   useEffect(() => {
-    if (!formName) return;
-    
-    const subscription = watch((newValues, { name }) => {
+    if (!formName || !formContext) return;
+
+    const {watch, formState} = formContext;
+
+    const subscription = watch((newValues, {name}) => {
       if (deepCompare(newValues, formState.defaultValues, true)) {
         resetFormData();
       } else if (name) {
@@ -80,14 +74,14 @@ export const usePersistedForm = ({ formName = "" }: PersistedFormProviderProps) 
       debouncedUpdate.cancel();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [watch, debouncedUpdate]);
+  }, [formContext, debouncedUpdate]);
 
   useOnMount(() => {
-    if (!isEmpty(formData) && !disabled && !formState.isLoading && open && formName) {
+    if (!isEmpty(formData) && !disabled && !formContext?.formState.isLoading && formName) {
 
       setTimeout(() => {
         Object.entries(formData).forEach(([key, value]) => {
-          setValue(key, value, { shouldDirty: true, shouldTouch: true });
+          formContext?.setValue(key as Path<T>, value, {shouldDirty: true, shouldTouch: true});
         });
       }, 200);
     }
