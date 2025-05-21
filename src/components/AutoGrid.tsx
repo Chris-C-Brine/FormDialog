@@ -51,13 +51,15 @@ export const AutoGrid: FC<AutoGridProps> = ({ components, columnWidths, columnCo
     columnSizes = [12];
   }
 
+  const columnLength = columnSizes.length;
+
   return (
     <Grid container {...props}>
       {Children.toArray(components).map((child, idx) => (
         <Grid
           key={(child as ReactElement).key}
           size={{
-            xs: columnSizes[idx] ?? columnSizes[columnSizes.length - 1]
+            xs: columnSizes[idx % columnLength]
           }}
         >
           {child}
