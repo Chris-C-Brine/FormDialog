@@ -9,8 +9,6 @@ import {merge} from "lodash";
 import {Close as CloseIcon} from "@mui/icons-material";
 import {FormDialogProps} from "../../types";
 
-
-
 /**
  * A dialog component specialized for forms with integrated context providers
  *

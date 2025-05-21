@@ -1,8 +1,6 @@
-import { Grid, type GridProps } from "@mui/material";
-import { Children, type FC, type ReactElement, type ReactNode } from "react";
+import { Grid } from "@mui/material";
+import { Children, type FC, type ReactElement } from "react";
 import {AutoGridProps} from "../types";
-
-
 
 /**
  * A responsive grid component that automatically arranges children in equal columns
@@ -37,17 +35,34 @@ import {AutoGridProps} from "../types";
  * @note Be careful of transferring keys of children to the wrapper Grid.
  * If not done correctly, it will cause React to discard the old tree and remount children components.
  */
-export const AutoGrid: FC<AutoGridProps> = ({ components, columnCount = 1, ...props }) => (
-  <Grid container {...props}>
-    {Children.toArray(components).map((child) => (
-      <Grid
-        key={(child as ReactElement).key}
-        size={{
-          xs: 12 / columnCount,
-        }}
-      >
-        {child}
-      </Grid>
-    ))}
-  </Grid>
-);
+export const AutoGrid: FC<AutoGridProps> = ({ components, columnWidths, columnCount, ...props }) => {
+  // Discriminant narrow: check which prop is present
+  let columnSizes: number[] = [];
+
+  if (columnWidths && columnWidths.length) {
+    // Use explicit columnWidths if provided
+    columnSizes = columnWidths;
+  } else if (columnCount) {
+    // Fall back to equally divided columns
+    // e.g. columnCount=4 → [3,3,3,3]
+    columnSizes = Array(columnCount).fill(Math.floor(12 / columnCount));
+  } else {
+    // Default to 1 full-width column
+    columnSizes = [12];
+  }
+
+  return (
+    <Grid container {...props}>
+      {Children.toArray(components).map((child, idx) => (
+        <Grid
+          key={(child as ReactElement).key}
+          size={{
+            xs: columnSizes[idx] ?? columnSizes[columnSizes.length - 1]
+          }}
+        >
+          {child}
+        </Grid>
+      ))}
+    </Grid>
+  )
+};
