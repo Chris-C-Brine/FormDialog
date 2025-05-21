@@ -5,23 +5,9 @@ import { memo, useCallback} from "react";
 import { useFormContext, useFormState } from "react-hook-form-mui";
 import { createFormChangeStore } from "../../state/createFormChangeStore";
 import { useFormDialog } from "../../hooks";
+import {FormResetButtonProps} from "../../types";
 
-/**
- * Props for the FormResetButton component
- */
-export type FormResetButtonProps = Omit<ButtonProps, "onClick"> & {
-  /**
-   * Whether to preserve the submission count when resetting the form
-   * When true, the form's submitCount will be maintained after reset
-   */
-  keepCount?: boolean;
 
-  /**
-   * A unique identifier for the form associated with this reset button
-   * When provided, also clears persisted form data from storage
-   */
-  formKey?: string;
-};
 
 /**
  * A reset button for forms with context awareness and persistence integration

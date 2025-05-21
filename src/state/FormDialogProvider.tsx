@@ -1,16 +1,8 @@
 // src/components/dialogs/FormDialog/state/FormDialogProvider.tsx
-import {useState, type FC, type PropsWithChildren } from "react";
-import {FormDialogContext, type  FormDialogContextType} from "./FormDialogContext";
+import {useState, type FC } from "react";
+import {FormDialogContext} from "./FormDialogContext";
 import {ThemeBridge} from '../utils';
-
-/**
- * Props for the FormDialogProvider component
- *
- * Extends React's PropsWithChildren and allows optional passing of dialog state
- * (open state and close handler) directly to the provider.
- */
-export interface FormDialogProviderProps extends PropsWithChildren, Partial<Pick<FormDialogContextType, "open" | "closeDialog">> {
-}
+import {FormDialogProviderProps} from "../types";
 
 /**
  * Context provider component for form dialog state management

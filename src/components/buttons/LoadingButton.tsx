@@ -1,23 +1,6 @@
 // src/components/buttons/LoadingButton.tsx
-import {Button, useTheme, type ButtonProps, CircularProgress, Box} from "@mui/material";
-import type {ReactNode} from "react";
-
-/**
- * Props for the LoadingButton component
- */
-export type LoadingButtonProps = ButtonProps & {
-  /**
-   * Controls the loading state of the button
-   * When false, displays a loading spinner; when true or undefined, displays normal content
-   */
-  loading?: boolean;
-
-  /**
-   * Optional icon to display when the button is not in loading state
-   * Can be used to provide a visual indicator of the button's action
-   */
-  altIcon?: ReactNode;
-};
+import {Button, useTheme, CircularProgress, Box} from "@mui/material";
+import {LoadingButtonProps} from "../../types";
 
 /**
  * A button component with built-in loading state visualization

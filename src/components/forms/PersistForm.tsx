@@ -1,17 +1,9 @@
 import {memo, type PropsWithChildren } from "react";
 import { usePersistForm } from "../../hooks";
 import {useFormContext} from "react-hook-form-mui";
+import {PersistFormProps} from "../../types";
 
-/**
- * Props for the PersistForm component
- */
-export interface PersistFormProps extends PropsWithChildren {
-  /**
-   * A unique identifier for the form
-   * This key is used to store and retrieve form data in the persistence layer
-   */
-  formName: string
-}
+
 
 /**
  * A component that enables form state persistence across sessions

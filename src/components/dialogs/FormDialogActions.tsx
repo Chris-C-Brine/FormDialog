@@ -1,57 +1,15 @@
 // src/components/FormDialogActions.tsx
 import {Grid, GridProps} from "@mui/material";
 import type { FC, PropsWithChildren } from "react";
-import { FormCancelButton, type FormCancelButtonProps } from "../buttons/FormCancelButton";
-import { FormResetButton, type FormResetButtonProps } from "../buttons/FormResetButton";
-import { FormSubmitButton, FormSubmitButtonProps } from "../buttons/FormSubmitButton";
+import { FormCancelButton } from "../buttons/FormCancelButton";
+import { FormResetButton} from "../buttons/FormResetButton";
+import { FormSubmitButton } from "../buttons/FormSubmitButton";
 import { GridSpacer } from "../GridSpacer";
 import { useMaxAttempts } from "../../hooks";
 import {applyDefaultFormDialogProps} from "../../utils";
+import {FormDialogActionsProps} from "../../types";
 
-/**
- * Props for the FormDialogActions component
- */
-export type FormDialogActionsProps = Partial<PropsWithChildren> & {
-    /**
-     * Props to customize the cancel button
-     */
-    cancelProps?: FormCancelButtonProps;
 
-    /**
-     * Props to customize the reset button
-     */
-    resetProps?: FormResetButtonProps;
-
-    /**
-     * Props to customize the "submit button"
-     */
-    submitProps?: FormSubmitButtonProps;
-
-    /**
-     * Display variant for the buttons
-     * - "icon": Shows only icons
-     * - "text": Shows only text
-     * - "iconText": Shows both icons and text
-     */
-    variant?: "icon" | "text" | "iconText";
-
-    /**
-     * Whether to hide the cancel button completely
-     * @default false
-     */
-    removeCancelButton?: boolean;
-
-    /**
-     * Whether to hide the reset button completely
-     * @default false
-     */
-    removeResetButton?: boolean;
-
-    /**
-     * Props to customize the containing Grid
-     */
-    gridProps?: GridProps
-};
 
 /**
  * Standard set of form dialog action buttons with consistent styling and behavior

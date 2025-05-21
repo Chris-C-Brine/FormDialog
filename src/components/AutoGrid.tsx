@@ -1,21 +1,7 @@
 import { Grid, type GridProps } from "@mui/material";
 import { Children, type FC, type ReactElement, type ReactNode } from "react";
+import {AutoGridProps} from "../types";
 
-/**
- * Props for the AutoGrid component
- */
-export type AutoGridProps = Omit<GridProps, "container" | "children"> & {
-  /**
-   * Array of React components to be arranged in the grid
-   */
-  components?: ReactNode[];
-
-  /**
-   * Number of columns to display (maximum 12 due to MUI Grid system)
-   * @default 1
-   */
-  columnCount?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-};
 
 
 /**

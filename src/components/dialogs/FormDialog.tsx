@@ -1,17 +1,15 @@
 // src/components/FormDialog.tsx
 import { useCallback, useMemo} from "react";
-import {BaseDialog, type BaseDialogProps} from "./BaseDialog";
-import {CommonFormProps, PaperForm} from "../forms/PaperForm";
+import {BaseDialog} from "./BaseDialog";
+import { PaperForm} from "../forms/PaperForm";
 import {type FieldValues} from "react-hook-form-mui";
 import {IconButton, type PaperProps} from "@mui/material";
 import {FormDialogProvider} from "../../state/FormDialogProvider";
 import {merge} from "lodash";
 import {Close as CloseIcon} from "@mui/icons-material";
+import {FormDialogProps} from "../../types";
 
-/**
- * Props for the FormDialog component
- */
-export type FormDialogProps<T extends FieldValues> = Omit<BaseDialogProps, "PaperComponent"> & CommonFormProps<T>;
+
 
 /**
  * A dialog component specialized for forms with integrated context providers

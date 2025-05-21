@@ -3,10 +3,8 @@ import { useFormContext } from "react-hook-form-mui";
 import { useFormDialog } from "./useFormDialog";
 import { hasMaxAttempts } from "../utils";
 import { merge } from "lodash";
+import {UseMaxAttemptProps} from "../types";
 
-type UseMaxAttemptProps = {
-  maxAttempts?: number;
-};
 
 export const useMaxAttempts = ({ maxAttempts }: UseMaxAttemptProps) => {
   const { formState, resetField } = useFormContext();

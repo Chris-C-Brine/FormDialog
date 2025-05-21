@@ -1,16 +1,7 @@
 import {Fragment, ReactNode} from "react";
-import {FormDialogActionsProps, FormSubmitButtonProps} from "../components";
-import {GridProps} from "@mui/material";
 import {Close as CloseIcon, Refresh as RefreshIcon, Save as SaveIcon} from "@mui/icons-material";
 import {omit} from "lodash";
-
-type ApplyDefaultFormDialogPropsProps = Pick<
-  FormDialogActionsProps,
-  "resetProps" | "submitProps" | "variant"
-> & Partial<Pick<FormDialogActionsProps, "cancelProps">>
-  & {
-  gridProps?: GridProps;
-};
+import {ApplyDefaultFormDialogPropsProps, FormSubmitButtonProps} from "../types";
 
 export function applyDefaultFormDialogProps(
   {resetProps, submitProps, gridProps, cancelProps, variant = "iconText"}: ApplyDefaultFormDialogPropsProps

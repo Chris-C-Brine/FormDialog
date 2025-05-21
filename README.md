@@ -6,8 +6,6 @@ A React component library that seamlessly integrates Material UI dialogs with Re
 
 ## Installation
 
-This package is currently private and intended for restricted access use.
-
 ```bash 
 npm install @chris-c-brine/form-dialog
 ```

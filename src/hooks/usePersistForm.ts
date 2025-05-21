@@ -6,21 +6,7 @@ import {debounce, isEmpty} from "lodash";
 import {useFormDialog} from "./useFormDialog";
 import {deepCompare} from "../utils";
 import {useOnMount} from "./useOnMount";
-
-
-export type PersistedFormProviderProps<T extends FieldValues> = {
-  /**
-   * A unique key for the form
-   */
-  formName: string | undefined;
-
-  /**
-   * Represents the context of a form, which is used to manage the state and actions of the form.
-   * The context is typically provided by a form management library and used to handle form inputs,
-   * validation, and submission.
-   */
-  formContext: UseFormReturn<T, any, T> | UseFormReturn<T> | undefined;
-}
+import {PersistedFormProviderProps} from "../types";
 
 /**
  * Hook that enables form state persistence across sessions

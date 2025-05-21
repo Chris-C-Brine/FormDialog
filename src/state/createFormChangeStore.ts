@@ -1,13 +1,8 @@
 // src/state/createFormChangeStore.ts
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import type { FieldValue, FieldValues } from "react-hook-form";
-
-export interface FormStore<T extends FieldValues> {
-  formData: Partial<Record<keyof T, FieldValue<T>>>; // Keys from `T`
-  updateFormData: <K extends keyof T>(key: K, value: FieldValue<T>) => void; // Enforces `key` exists in `T`
-  resetFormData: (key?: keyof T) => void;
-}
+import type { FieldValues } from "react-hook-form";
+import {FormStore} from "../types";
 
 const storage = createJSONStorage(() => {
   try {

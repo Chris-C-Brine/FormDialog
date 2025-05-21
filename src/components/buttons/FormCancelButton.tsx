@@ -2,11 +2,8 @@ import { Button, type ButtonProps } from "@mui/material";
 import { omit } from "lodash";
 import { memo } from "react";
 import { useFormDialog } from "../../hooks";
+import {FormCancelButtonProps} from "../../types";
 
-export type FormCancelButtonProps = Omit<ButtonProps, "onClick"> & {
-    /** Whether to maintain any attempt counters when canceling */
-    keepCount?: boolean;
-};
 
 /**
  * A cancel button component that integrates with FormDialogContext.

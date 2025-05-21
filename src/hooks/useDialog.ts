@@ -1,25 +1,6 @@
-import { DialogProps } from "@mui/material";
-import { useCallback, useState, MouseEvent, useRef, useEffect } from "react";
+import { useCallback, useState } from "react";
+import {UseDialogProps, UseDialogReturn} from "../types";
 
-export interface UseDialogProps {
-  /** Initial open state of the dialog */
-  open?: boolean,
-  /** Always keep the children in the DOM. */
-  keepMounted?: boolean,
-}
-
-export interface UseDialogReturn {
-  /** Function to close the dialog */
-  closeDialog: () => void;
-  /** Function to open the dialog */
-  openDialog: (e?: MouseEvent) => void;
-  /** Props to spread onto the dialog component */
-  dialogProps: {
-    open: boolean;
-    onClose: () => void;
-    keepMounted: boolean;
-  }
-}
 
 /**
  * Hook for managing dialog state and providing dialog control functions

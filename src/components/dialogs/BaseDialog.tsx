@@ -1,46 +1,11 @@
 // src/components/BaseDialog.tsx
-import type { FC, ReactNode } from "react";
+import type { FC } from "react";
 import { DialogTitle, DialogContent, DialogActions } from "@mui/material";
-import { BlackoutDialog, type BlackoutDialogProps } from "./BlackoutDialog";
-import type { DialogContentProps, DialogTitleProps, DialogActionsProps } from "@mui/material";
+import { BlackoutDialog } from "./BlackoutDialog";
+import {BaseDialogProps} from "../../types";
 
-export type BaseDialogProps = BlackoutDialogProps & {
-  /**
-   * Title content for the dialog
-   * When provided, renders a DialogTitle component
-   */
-  title?: ReactNode;
 
-  /**
-   * Props passed to the DialogTitle component
-   * Only applied when title is provided
-   */
-  titleProps?: DialogTitleProps;
 
-  /**
-   * Props passed to the DialogContent component
-   * Only applied when children is provided
-   */
-  contentProps?: DialogContentProps;
-
-  /**
-   * Action buttons for the dialog footer
-   * When provided, renders a DialogActions component
-   */
-  actions?: ReactNode;
-
-  /**
-   * Props passed to the DialogActions component
-   * Only applied when actions is provided
-   */
-  actionsProps?: DialogActionsProps;
-
-  /**
-   * Optional close button that appears in the header
-   * Positioned adjacent to the title
-   */
-  closeButton?: ReactNode;
-};
 
 /**
  * A flexible dialog component with standardized structure and styling
@@ -82,20 +47,10 @@ export const BaseDialog: FC<BaseDialogProps> = ({
   id,
   actions = null,
   actionsProps,
-  sx,
-  ...props
+    ...props
 }) => (
   <BlackoutDialog
     id={id}
-    sx={{
-      "& .MuiDialog-container": {
-        "& .MuiPaper-root": {
-          minWidth: "max-content",
-          mb: 2,
-        },
-      },
-      ...sx,
-    }}
     {...props}
   >
     {title && <DialogTitle {...titleProps}>{title}</DialogTitle>} {closeButton}

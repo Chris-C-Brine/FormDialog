@@ -1,25 +1,10 @@
 // src/components/buttons/FormSubmitButton.tsx
 import { Badge } from "@mui/material";
-import { LoadingButton,  type LoadingButtonProps } from "./LoadingButton";
+import { LoadingButton} from "./LoadingButton";
 import { memo } from "react";
 import { useFormDialog } from "../../hooks";
 import {useFormState} from "react-hook-form-mui";
-
-/**
- * Props for the FormSubmitButton component
- */
-export type FormSubmitButtonProps = Omit<LoadingButtonProps, "onClick"> & {
-  /**
-   * Whether to show the submission attempt count badge
-   */
-  showAttempts?: boolean;
-
-  /**
-   * Maximum number of submission attempts allowed
-   * When reached, the button displays a visual indicator
-   */
-  maxAttempts?: number;
-};
+import type {FormSubmitButtonProps} from "../../types";
 
 /**
  * A "submit button" for forms with loading state, attempt tracking and form context awareness

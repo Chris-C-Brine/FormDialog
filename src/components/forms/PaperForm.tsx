@@ -2,28 +2,9 @@
 import { Paper, type PaperProps } from "@mui/material";
 import { FormContainer, type FieldValues, type FormContainerProps } from "react-hook-form-mui";
 import {PersistForm} from "./PersistForm";
+import {PaperFormProps} from "../../types";
 
 
-export type CommonFormProps<T extends FieldValues> = {
-  /**
-   * Props to configure the form container
-   * This includes settings for form state, validation, and submission handling
-   */
-  formProps: FormContainerProps<T>;
-
-  /**
-   * Optional key to use for form state persistence
-   * When provided, the form state will be persisted in
-   * session storage with a fallback to local storage (TODO: make configurable)
-   * and restored on form reload/mount.
-   */
-  persistKey?: string;
-};
-
-/**
- * Props for the PaperForm component
- */
-export type PaperFormProps<T extends FieldValues> = PaperProps & CommonFormProps<T>;
 
 /**
  * A component that combines a Material UI Paper with a form container
