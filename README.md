@@ -90,7 +90,8 @@ export type LoginFormValues = typeof defaultLoginFormValues;
 // LoginFormBase.tsx
 import { TextFieldElement, PasswordElement, type PasswordElementProps, useFormContext} from "react-hook-form-mui";
 import { memo, useEffect } from "react";
-import { useFormDialog, AutoGrid, type AutoGridProps } from "@chris-c-brine/form-dialog";
+import { useFormDialog } from "@chris-c-brine/form-dialog";
+import { AutoGrid, type AutoGridProps } from "@chris-c-brine/autogrid";
 
 /**
  * Login Form
@@ -329,3 +330,7 @@ LoginDialog.displayName = "LoginDialog";
 
 
 ```
+
+## License
+
+[ISC](LICENSE) © Christopher Brine

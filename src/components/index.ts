@@ -13,5 +13,4 @@ export * from "./buttons/LoadingButton";
 
 // Layouts
 export * from "./dialogs/FormDialogActions"
-export * from "./AutoGrid";
 export * from "./GridSpacer";

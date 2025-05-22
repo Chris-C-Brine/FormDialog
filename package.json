@@ -1,12 +1,13 @@
 {
   "name": "@chris-c-brine/form-dialog",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Easy Form Dialogs with a persistable state!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "LICENSE"
   ],
   "scripts": {
     "build": "rollup -c",
@@ -19,7 +20,6 @@
     "zustand",
     "react-hook-form-mui"
   ],
-  "author": "Christopher Brine",
   "peerDependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
@@ -37,13 +37,13 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.1.0",
     "@mui/material": "^7.1.0",
+    "@types/lodash": "4.17.16",
+    "lodash": "^4.17.21",
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.2",
-    "@types/lodash": "4.17.16",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
-    "lodash": "^4.17.21",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.56.3",
@@ -54,5 +54,11 @@
     "typescript": "^5.8.3",
     "zustand": "^5.0.4",
     "@types/node": "^22.15.17"
-  }
+  },
+  "author": "Christopher Brine",
+  "license": "AAL",
+  "bugs": {
+    "url": "https://github.com/Chris-C-Brine/FormDialog/issues"
+  },
+  "homepage": "https://github.com/Chris-C-Brine/FormDialog#readme"
 }
