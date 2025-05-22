@@ -1,4 +1,4 @@
-# @chris-c-brine/form-dialog
+# @Chris-C-Brine/FormDialog
 
 Easy Form Dialogs with a persistable state!
 
