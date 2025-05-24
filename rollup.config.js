@@ -39,7 +39,6 @@ export default {
         'react-hook-form',
         'react-hook-form-mui',
         'zustand',
-        'zustand/middleware',
-        'lodash'
+        'zustand/middleware'
     ]
 };

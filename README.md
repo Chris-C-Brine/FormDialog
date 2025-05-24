@@ -1,4 +1,6 @@
 # @Chris-C-Brine/FormDialog
+[![npm version](https://img.shields.io/npm/v/@chris-c-brine/form-dialog.svg)](https://www.npmjs.com/package/@chris-c-brine/form-dialog)
+[![License: AAL](https://img.shields.io/badge/License-AAL-blue.svg)](https://github.com/Chris-C-Brine/form-dialog/blob/main/LICENSE)
 
 Easy Form Dialogs with a persistable state!
 
@@ -7,7 +9,7 @@ A React component library that seamlessly integrates Material UI dialogs with Re
 ## Installation
 
 ```bash 
-npm install @chris-c-brine/form-dialog
+  npm install @chris-c-brine/form-dialog
 ```
 
 ## Dependencies
@@ -16,7 +18,6 @@ This package has the following peer dependencies that need to be installed in yo
 - @emotion/styled: ^11.14.0
 - @mui/icons-material: ^7.1.0
 - @mui/material: ^7.1.0
-- lodash: ^4.17.21
 - react: ^19.1.0
 - react-dom: ^19.1.0
 - react-hook-form: ^7.56.2
@@ -328,9 +329,8 @@ export const LoginDialog = memo(function ({ dialogProps }: LoginDialogProps) {
 
 LoginDialog.displayName = "LoginDialog";
 
-
 ```
 
 ## License
 
-[ISC](LICENSE) © Christopher Brine
+[AAL](LICENSE) © Christopher C. Brine
