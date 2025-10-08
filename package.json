@@ -1,6 +1,6 @@
 {
   "name": "@chris-c-brine/form-dialog",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Easy Form Dialogs with a persistable state!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -31,7 +31,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.56.2",
-    "react-hook-form-mui": "^7.6.0",
+    "react-hook-form-mui": "^7.6.0 || ^8.0.0",
     "zustand": "^5.0.4"
   },
   "devDependencies": {
@@ -48,7 +48,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.56.3",
-    "react-hook-form-mui": "^7.6.0",
+    "react-hook-form-mui": "^7.6.0 || ^8.0.0",
     "rollup": "^4.40.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "tslib": "^2.8.1",

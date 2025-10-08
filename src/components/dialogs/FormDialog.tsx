@@ -1,7 +1,7 @@
 // src/components/FormDialog.tsx
-import { useCallback, useMemo} from "react";
+import {useCallback, useMemo} from "react";
 import {BaseDialog} from "./BaseDialog";
-import { PaperForm} from "../forms/PaperForm";
+import {PaperForm} from "../forms/PaperForm";
 import {type FieldValues} from "react-hook-form-mui";
 import {IconButton, type PaperProps} from "@mui/material";
 import {FormDialogProvider} from "../../state/FormDialogProvider";
@@ -30,14 +30,9 @@ import {FormDialogProps} from "../../types";
  * - useFormDialog() - Access dialog controls and state
  *
  */
-export const FormDialog = function <T extends FieldValues>({
-    formProps,
-    children,
-    open,
-    onClose,
-    persistKey = "",
-    ...dialogProps
-  }: FormDialogProps<T>) {
+export const FormDialog = function <T extends FieldValues>(
+  {formProps, children, open, onClose, persistKey = "", ...dialogProps}: FormDialogProps<T>
+) {
   const PaperComponent = useCallback(
     (props: PaperProps) => <PaperForm persistKey={persistKey} formProps={formProps} {...props} />,
     [formProps, persistKey]
