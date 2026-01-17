@@ -1,5 +1,5 @@
 // src/components/buttons/LoadingButton.tsx
-import {Button, useTheme, CircularProgress, Box} from "@mui/material";
+import {Button, CircularProgress, Box} from "@mui/material";
 import {LoadingButtonProps} from "../../types";
 
 /**
@@ -42,7 +42,6 @@ import {LoadingButtonProps} from "../../types";
  * </LoadingButton>
  */
 export const LoadingButton = ({children, loading = false, altIcon, ...props}: LoadingButtonProps) => {
-  const theme = useTheme();
   return (
     <Button {...props}>
       {!loading ? altIcon : (
@@ -55,7 +54,7 @@ export const LoadingButton = ({children, loading = false, altIcon, ...props}: Lo
             height: "auto",
             mr: 1,
           }}>
-          <CircularProgress color="inherit" size={theme.typography.fontSize}/>
+          <CircularProgress color="inherit" size={"inherit"}/>
         </Box>
       )}
       {children}

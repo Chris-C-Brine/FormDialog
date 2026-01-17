@@ -1,5 +1,5 @@
 // src/components/BlackoutDialog.tsx
-import {Dialog, type DialogProps} from "@mui/material";
+import {Dialog} from "@mui/material";
 import {type FC} from "react";
 import {BlackoutDialogProps} from "../../types";
 

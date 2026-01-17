@@ -15,31 +15,29 @@ import type {FieldValue} from "react-hook-form";
  * Props for the FormCancelButton component
  */
 export type FormCancelButtonProps = Omit<ButtonProps, "onClick"> & {
-  /** Whether to maintain any attempt counters when canceling */
-  keepCount?: boolean;
+  iconVariant?: FormDialogActionsProps['variant']
 };
 
 /**
  * Props for the FormResetButton component
  */
 export type FormResetButtonProps = Omit<ButtonProps, "onClick"> & {
-  /**
-   * Whether to preserve the submission count when resetting the form
-   * When true, the form's submitCount will be maintained after reset
-   */
-  keepCount?: boolean;
+  iconVariant?: FormDialogActionsProps['variant'],
 
   /**
    * A unique identifier for the form associated with this reset button
    * When provided, also clears persisted form data from storage
    */
   formKey?: string;
+
+  keepCount?: boolean;
 };
 
 /**
  * Props for the FormSubmitButton component
  */
 export type FormSubmitButtonProps = Omit<LoadingButtonProps, "onClick"> & {
+  iconVariant?: FormDialogActionsProps['variant'],
   /**
    * Whether to show the submission attempt count badge
    */
