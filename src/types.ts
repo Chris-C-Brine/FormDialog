@@ -80,6 +80,13 @@ export type LoadingButtonProps = ButtonProps & {
    */
   loading?: boolean;
 
+  /**
+   * Properties to configure the appearance and behavior of a circular progress indicator.
+   * This variable allows customization of a loading icon using the attributes defined in `CircularProgressProps`.
+   * It can be used to control the size, color, and additional settings of the circular progress component.
+   *
+   * @type {CircularProgressProps | undefined}
+   */
   loadingIconProps?: CircularProgressProps,
 
   /**
