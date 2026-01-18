@@ -1,12 +1,10 @@
 // src/components/buttons/FormResetButton.tsx
-import { Button, type ButtonProps } from "@mui/material";
-import { omit } from "lodash";
-import { memo, useCallback} from "react";
-import { useFormContext, useFormState } from "react-hook-form-mui";
-import { createFormChangeStore } from "../../state/createFormChangeStore";
-import { useFormDialog } from "../../hooks";
+import {Button, type ButtonProps} from "@mui/material";
+import {omit} from "lodash";
+import {memo, useCallback} from "react";
+import {useFormContext, useFormState} from "react-hook-form-mui";
+import {useFormDialog} from "../../hooks";
 import {FormResetButtonProps} from "../../types";
-
 
 
 /**
@@ -42,17 +40,15 @@ import {FormResetButtonProps} from "../../types";
  */
 export const FormResetButton = memo(function (props?: FormResetButtonProps) {
   const formKey = props?.formKey ?? "";
-  const { resetFormData } = createFormChangeStore(formKey)();
-  const { reset } = useFormContext();
-  const { isSubmitting, isLoading, isDirty } = useFormState();
-  const { disabled: disabledForm } = useFormDialog();
+  const {reset} = useFormContext();
+  const {isSubmitting, isLoading, isDirty} = useFormState();
+  const {disabled: disabledForm} = useFormDialog();
 
   const keepSubmitCount = !!props?.keepCount;
 
   const handleOnClick = useCallback(() => {
-    reset(undefined, { keepSubmitCount, keepIsSubmitted: keepSubmitCount });
-    if (formKey) resetFormData();
-  }, [keepSubmitCount, formKey, reset, resetFormData]);
+    reset(undefined, {keepSubmitCount, keepIsSubmitted: keepSubmitCount});
+  }, [keepSubmitCount, formKey, reset]);
 
   const isBusy = isSubmitting || isLoading;
   const isDisabled = props?.disabled || disabledForm;
@@ -68,7 +64,7 @@ export const FormResetButton = memo(function (props?: FormResetButtonProps) {
   };
 
   return (
-    <Button {...buttonProps} disabled={isBusy || isDisabled || isClean} onClick={handleOnClick} />
+    <Button {...buttonProps} disabled={isBusy || isDisabled || isClean} onClick={handleOnClick}/>
   );
 });
 

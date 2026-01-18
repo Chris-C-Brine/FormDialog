@@ -1,14 +1,13 @@
 // src/components/FormDialogActions.tsx
-import {Grid, GridProps} from "@mui/material";
-import type { FC, PropsWithChildren } from "react";
-import { FormCancelButton } from "../buttons/FormCancelButton";
-import { FormResetButton} from "../buttons/FormResetButton";
-import { FormSubmitButton } from "../buttons/FormSubmitButton";
-import { GridSpacer } from "../GridSpacer";
-import { useMaxAttempts } from "../../hooks";
+import {Grid} from "@mui/material";
+import type {FC} from "react";
+import {FormCancelButton} from "../buttons/FormCancelButton";
+import {FormResetButton} from "../buttons/FormResetButton";
+import {FormSubmitButton} from "../buttons/FormSubmitButton";
+import {GridSpacer} from "../GridSpacer";
+import {useMaxAttempts} from "../../hooks";
 import {applyDefaultFormDialogProps} from "../../utils";
 import {FormDialogActionsProps} from "../../types";
-
 
 
 /**
@@ -48,32 +47,33 @@ import {FormDialogActionsProps} from "../../types";
  *   gridProps={{ justifyContent: "center", mt: 3 }}
  * />
  */
-export const FormDialogActions: FC<FormDialogActionsProps> = ({
-  resetProps,
-  submitProps,
-  cancelProps,
-  children,
-  variant,
-  removeCancelButton = false,
-  removeResetButton = false,
-  gridProps
-}) => {
+export const FormDialogActions: FC<FormDialogActionsProps> = (
+  {
+    resetProps,
+    submitProps,
+    cancelProps,
+    children,
+    variant,
+    removeCancelButton = false,
+    removeResetButton = false,
+    gridProps
+  }) => {
   // Disable the form when the count exceeds the maxAttempts
-  useMaxAttempts({ maxAttempts: submitProps?.maxAttempts || Infinity });
+  useMaxAttempts({maxAttempts: submitProps?.maxAttempts || Infinity});
 
   // Apply default props to the buttons and grid container
-  const { gridContainerProps, cancelButtonProps, resetButtonProps, submitButtonProps } =
-      applyDefaultFormDialogProps({ resetProps, submitProps, cancelProps, gridProps, variant });
+  const {gridContainerProps, cancelButtonProps, resetButtonProps, submitButtonProps} =
+    applyDefaultFormDialogProps({resetProps, submitProps, cancelProps, gridProps, variant});
 
   return (
     <Grid container {...gridContainerProps}>
-        {!removeCancelButton && <Grid>
-            <FormCancelButton {...cancelButtonProps} />
-        </Grid>}
-        {!removeResetButton && <Grid>
-            <FormResetButton {...resetButtonProps} />
-        </Grid>}
-      {children ?? <GridSpacer />}
+      {!removeCancelButton && <Grid>
+          <FormCancelButton {...cancelButtonProps} />
+      </Grid>}
+      {!removeResetButton && <Grid>
+          <FormResetButton {...resetButtonProps} />
+      </Grid>}
+      {children ?? <GridSpacer/>}
       <Grid>
         <FormSubmitButton {...submitButtonProps} />
       </Grid>

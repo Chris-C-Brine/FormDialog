@@ -1,6 +1,6 @@
 {
   "name": "@chris-c-brine/form-dialog",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "Easy Form Dialogs with a persistable state!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,9 +15,8 @@
   },
   "keywords": [
     "RHF Dialog",
-    "Persistable Dialogs",
+    "Form Dialog",
     "typescript",
-    "zustand",
     "react-hook-form-mui"
   ],
   "dependencies": {
@@ -31,8 +30,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.0.0",
-    "react-hook-form-mui": "^7.0.0 || ^8.0.0",
-    "zustand": "^5.0.0"
+    "react-hook-form-mui": "^7.0.0 || ^8.0.0"
   },
   "devDependencies": {
     "@emotion/react": "^11.14.0",
@@ -53,7 +51,6 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "tslib": "^2.8.1",
     "typescript": "^5.8.3",
-    "zustand": "^5.0.4",
     "@types/node": "^22.15.17"
   },
   "author": "Christopher Brine",

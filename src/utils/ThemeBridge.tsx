@@ -1,6 +1,6 @@
 // src/utils/ThemeBridge.tsx
 import { useTheme as useMuiTheme } from '@mui/material/styles';
-import React, { createContext, useEffect, useState, ReactNode, PropsWithChildren } from 'react';
+import React, { createContext, useEffect, useState,  PropsWithChildren } from 'react';
 
 // Create a context that will hold the parent theme
 const ParentThemeContext = createContext<any>(null);

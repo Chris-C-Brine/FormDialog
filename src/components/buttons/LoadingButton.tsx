@@ -41,7 +41,7 @@ import {LoadingButtonProps} from "../../types";
  *   Process Payment
  * </LoadingButton>
  */
-export const LoadingButton = ({children, loading = false, altIcon, ...props}: LoadingButtonProps) => {
+export const LoadingButton = ({children, loading = false, altIcon, loadingIconProps, ...props}: LoadingButtonProps) => {
   return (
     <Button {...props}>
       {!loading ? altIcon : (
@@ -54,7 +54,7 @@ export const LoadingButton = ({children, loading = false, altIcon, ...props}: Lo
             height: "auto",
             mr: 1,
           }}>
-          <CircularProgress color="inherit" size={"inherit"}/>
+          <CircularProgress {...loadingIconProps}/>
         </Box>
       )}
       {children}

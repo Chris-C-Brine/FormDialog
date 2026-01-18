@@ -38,7 +38,5 @@ export default {
         '@emotion/styled',
         'react-hook-form',
         'react-hook-form-mui',
-        'zustand',
-        'zustand/middleware'
     ]
 };

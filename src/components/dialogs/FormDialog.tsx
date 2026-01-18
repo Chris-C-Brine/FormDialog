@@ -31,11 +31,11 @@ import {FormDialogProps} from "../../types";
  *
  */
 export const FormDialog = function <T extends FieldValues>(
-  {formProps, children, open, onClose, persistKey = "", ...dialogProps}: FormDialogProps<T>
+  {formProps, children, open, onClose, ...dialogProps}: FormDialogProps<T>
 ) {
   const PaperComponent = useCallback(
-    (props: PaperProps) => <PaperForm persistKey={persistKey} formProps={formProps} {...props} />,
-    [formProps, persistKey]
+    (props: PaperProps) => <PaperForm  formProps={formProps} {...props} />,
+    [formProps]
   );
 
   const baseDialogProps = useMemo(() => merge(

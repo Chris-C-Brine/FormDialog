@@ -1,5 +1,6 @@
 import type {
   ButtonProps,
+  CircularProgressProps,
   DialogActionsProps,
   DialogContentProps,
   DialogProps,
@@ -7,9 +8,14 @@ import type {
   GridProps,
   PaperProps
 } from "@mui/material";
-import {type Dispatch, MouseEvent, PropsWithChildren, ReactNode, type SetStateAction} from "react";
-import {FieldValues, type FormContainerProps, UseFormReturn} from "react-hook-form-mui";
-import type {FieldValue} from "react-hook-form";
+import {
+  MouseEvent,
+  PropsWithChildren,
+  ReactNode,
+  type Dispatch,
+  type SetStateAction
+} from "react";
+import {FieldValues, type FormContainerProps} from "react-hook-form-mui";
 
 /**
  * Props for the FormCancelButton component
@@ -73,6 +79,8 @@ export type LoadingButtonProps = ButtonProps & {
    * When false, displays a loading spinner; when true or undefined, displays normal content
    */
   loading?: boolean;
+
+  loadingIconProps?: CircularProgressProps,
 
   /**
    * Optional icon to display when the button is not in loading state
@@ -201,32 +209,12 @@ export type CommonFormProps<T extends FieldValues> = {
    * This includes settings for form state, validation, and submission handling
    */
   formProps: FormContainerProps<T>;
-
-  /**
-   * Optional key to use for form state persistence
-   * When provided, the form state will be persisted in
-   * session storage with a fallback to local storage (TODO: make configurable)
-   * and restored on form reload/mount.
-   */
-  persistKey?: string;
 };
 
 /**
  * Props for the PaperForm component
  */
 export type PaperFormProps<T extends FieldValues> = PaperProps & CommonFormProps<T>;
-
-/**
- * Props for the PersistForm component
- */
-export interface PersistFormProps extends PropsWithChildren {
-  /**
-   * A unique identifier for the form
-   * This key is used to store and retrieve form data in the persistence layer
-   */
-  formName: string
-}
-
 
 export interface UseDialogProps {
   /** Initial open state of the dialog */
@@ -251,26 +239,6 @@ export interface UseDialogReturn {
 export type UseMaxAttemptProps = {
   maxAttempts?: number;
 };
-
-export type PersistedFormProviderProps<T extends FieldValues> = {
-  /**
-   * A unique key for the form
-   */
-  formName: string | undefined;
-
-  /**
-   * Represents the context of a form, which is used to manage the state and actions of the form.
-   * The context is typically provided by a form management library and used to handle form inputs,
-   * validation, and submission.
-   */
-  formContext: UseFormReturn<T, any, T> | UseFormReturn<T> | undefined;
-}
-
-export interface FormStore<T extends FieldValues> {
-  formData: Partial<Record<keyof T, FieldValue<T>>>; // Keys from `T`
-  updateFormData: <K extends keyof T>(key: K, value: FieldValue<T>) => void; // Enforces `key` exists in `T`
-  resetFormData: (key?: keyof T) => void;
-}
 
 export type FormDialogContextType = {
   open?: boolean;
