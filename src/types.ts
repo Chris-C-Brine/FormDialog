@@ -15,6 +15,10 @@ import type {FieldValue} from "react-hook-form";
  * Props for the FormCancelButton component
  */
 export type FormCancelButtonProps = Omit<ButtonProps, "onClick"> & {
+  /**
+   * Display variant for the button, determining whether to show icon, text, or both.
+   * Inherited from FormDialogActionsProps.
+   */
   iconVariant?: FormDialogActionsProps['variant']
 };
 
@@ -22,6 +26,9 @@ export type FormCancelButtonProps = Omit<ButtonProps, "onClick"> & {
  * Props for the FormResetButton component
  */
 export type FormResetButtonProps = Omit<ButtonProps, "onClick"> & {
+  /**
+   * Display variant for the button.
+   */
   iconVariant?: FormDialogActionsProps['variant'],
 
   /**
@@ -30,6 +37,10 @@ export type FormResetButtonProps = Omit<ButtonProps, "onClick"> & {
    */
   formKey?: string;
 
+  /**
+   * Whether to preserve the submission count when resetting the form.
+   * When true, the form's submitCount will be maintained after reset.
+   */
   keepCount?: boolean;
 };
 
@@ -37,6 +48,9 @@ export type FormResetButtonProps = Omit<ButtonProps, "onClick"> & {
  * Props for the FormSubmitButton component
  */
 export type FormSubmitButtonProps = Omit<LoadingButtonProps, "onClick"> & {
+  /**
+   * Display variant for the button.
+   */
   iconVariant?: FormDialogActionsProps['variant'],
   /**
    * Whether to show the submission attempt count badge
@@ -67,6 +81,9 @@ export type LoadingButtonProps = ButtonProps & {
   altIcon?: ReactNode;
 };
 
+/**
+ * Props for the BaseDialog component, extending BlackoutDialog with standard layout sections.
+ */
 export type BaseDialogProps = BlackoutDialogProps & {
   /**
    * Title content for the dialog
@@ -105,6 +122,9 @@ export type BaseDialogProps = BlackoutDialogProps & {
   closeButton?: ReactNode;
 };
 
+/**
+ * Props for the BaseDialog component, extending BlackoutDialog with standard layout sections.
+ */
 export type BlackoutDialogProps = Omit<DialogProps, "title"> & {
   /**
    * An optional unique string identifier
@@ -206,7 +226,6 @@ export interface PersistFormProps extends PropsWithChildren {
    */
   formName: string
 }
-
 
 
 export interface UseDialogProps {

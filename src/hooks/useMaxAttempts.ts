@@ -6,6 +6,17 @@ import { merge } from "lodash";
 import {UseMaxAttemptProps} from "../types";
 
 
+/**
+ * Hook that monitors form submission attempts and disables the form when a limit is reached.
+ *
+ * It performs two main functions:
+ * 1. Monitors `formState.submitCount` and calls `setDisabled(true)` from the dialog context
+ *    once it reaches or exceeds the specified `maxAttempts`.
+ * 2. When the dialog context enters a `disabled` state, it automatically resets form fields
+ *    that have errors or are dirty to ensure a clean state for the user.
+ *
+ * @param props - UseMaxAttemptProps
+ */
 export const useMaxAttempts = ({ maxAttempts }: UseMaxAttemptProps) => {
   const { formState, resetField } = useFormContext();
   const { setDisabled, disabled } = useFormDialog();
