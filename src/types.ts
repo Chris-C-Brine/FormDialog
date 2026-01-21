@@ -31,7 +31,7 @@ export type FormCancelButtonProps = Omit<ButtonProps, "onClick"> & {
 /**
  * Props for the FormResetButton component
  */
-export type FormResetButtonProps = Omit<ButtonProps, "onClick"> & {
+export type FormResetButtonProps = ButtonProps & {
   /**
    * Display variant for the button.
    */

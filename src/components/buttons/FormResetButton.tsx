@@ -1,7 +1,7 @@
 // src/components/buttons/FormResetButton.tsx
 import {Button, type ButtonProps} from "@mui/material";
 import {omit} from "lodash";
-import {memo, useCallback} from "react";
+import {memo, useCallback, MouseEvent} from "react";
 import {useFormContext, useFormState} from "react-hook-form-mui";
 import {useFormDialog} from "../../hooks";
 import {FormResetButtonProps} from "../../types";
@@ -46,7 +46,9 @@ export const FormResetButton = memo(function (props?: FormResetButtonProps) {
 
   const keepSubmitCount = !!props?.keepCount;
 
-  const handleOnClick = useCallback(() => {
+  const handleOnClick = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+    props?.onClick?.(e);
+    if (e.isDefaultPrevented()) return;
     reset(undefined, {keepSubmitCount, keepIsSubmitted: keepSubmitCount});
   }, [keepSubmitCount, formKey, reset]);
 
