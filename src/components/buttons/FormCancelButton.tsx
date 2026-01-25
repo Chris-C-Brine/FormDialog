@@ -1,8 +1,7 @@
-import { Button, type ButtonProps } from "@mui/material";
-import { omit } from "lodash";
-import { memo } from "react";
-import { useFormDialog } from "../../hooks";
-import {FormCancelButtonProps} from "../../types";
+import {memo, MouseEvent, useCallback} from "react";
+import {useFormButton} from "../../hooks";
+import {FormButtonProps, LoadingButtonProps} from "../../types";
+import {LoadingButton} from "./LoadingButton";
 
 
 /**
@@ -21,17 +20,24 @@ import {FormCancelButtonProps} from "../../types";
  *   children="Go Back"
  * />
  */
-export const FormCancelButton = memo(function (props?: FormCancelButtonProps) {
-    const {closeDialog} = useFormDialog();
+export const FormCancelButton = memo(function (props?: FormButtonProps) {
+  const {dialogState: {closeDialog}} = useFormButton();
 
-    const buttonProps: ButtonProps = {
-        children: "Cancel",
-        variant: "outlined",
-        size: "large",
-        color: "error",
-        ...omit(props ?? {}, "keepCount")
-    };
-    return <Button {...buttonProps} onClick={(e) => closeDialog?.(e, "escapeKeyDown")}/>;
+  const handleOnClick = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+    props?.onClick?.(e);
+    if (e.isDefaultPrevented()) return;
+    closeDialog?.(e, "escapeKeyDown");
+  }, [closeDialog, props?.onClick]);
+
+  const buttonProps: LoadingButtonProps = {
+    color: "error",
+    children: "CANCEL",
+    variant: "outlined",
+    size: "large",
+    ...props
+  };
+
+  return <LoadingButton {...buttonProps} onClick={handleOnClick}/>;
 });
 
 FormCancelButton.displayName = "FormCancelButton";

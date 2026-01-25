@@ -18,9 +18,9 @@ import {
 import {FieldValues, type FormContainerProps} from "react-hook-form-mui";
 
 /**
- * Props for the FormCancelButton component
+ * Props for the Form Buttons
  */
-export type FormCancelButtonProps = Omit<ButtonProps, "onClick"> & {
+export type FormButtonProps = LoadingButtonProps & {
   /**
    * Display variant for the button, determining whether to show icon, text, or both.
    * Inherited from FormDialogActionsProps.
@@ -29,54 +29,12 @@ export type FormCancelButtonProps = Omit<ButtonProps, "onClick"> & {
 };
 
 /**
- * Props for the FormResetButton component
- */
-export type FormResetButtonProps = ButtonProps & {
-  /**
-   * Display variant for the button.
-   */
-  iconVariant?: FormDialogActionsProps['variant'],
-
-  /**
-   * A unique identifier for the form associated with this reset button
-   * When provided, also clears persisted form data from storage
-   */
-  formKey?: string;
-
-  /**
-   * Whether to preserve the submission count when resetting the form.
-   * When true, the form's submitCount will be maintained after reset.
-   */
-  keepCount?: boolean;
-};
-
-/**
- * Props for the FormSubmitButton component
- */
-export type FormSubmitButtonProps = Omit<LoadingButtonProps, "onClick"> & {
-  /**
-   * Display variant for the button.
-   */
-  iconVariant?: FormDialogActionsProps['variant'],
-  /**
-   * Whether to show the submission attempt count badge
-   */
-  showAttempts?: boolean;
-
-  /**
-   * Maximum number of submission attempts allowed
-   * When reached, the button displays a visual indicator
-   */
-  maxAttempts?: number;
-};
-
-/**
  * Props for the LoadingButton component
  */
 export type LoadingButtonProps = ButtonProps & {
   /**
    * Controls the loading state of the button
-   * When false, displays a loading spinner; when true or undefined, displays normal content
+   * When true, displays a loading spinner; when false or undefined, displays normal content
    */
   loading?: boolean;
 
@@ -172,17 +130,17 @@ export type FormDialogActionsProps = Partial<PropsWithChildren> & {
   /**
    * Props to customize the cancel button
    */
-  cancelProps?: FormCancelButtonProps;
+  cancelProps?: FormButtonProps;
 
   /**
    * Props to customize the reset button
    */
-  resetProps?: FormResetButtonProps;
+  resetProps?: FormButtonProps;
 
   /**
    * Props to customize the "submit button"
    */
-  submitProps?: FormSubmitButtonProps;
+  submitProps?: FormButtonProps;
 
   /**
    * Display variant for the buttons
@@ -242,10 +200,6 @@ export interface UseDialogReturn {
     keepMounted: boolean;
   }
 }
-
-export type UseMaxAttemptProps = {
-  maxAttempts?: number;
-};
 
 export type FormDialogContextType = {
   open?: boolean;

@@ -1,14 +1,11 @@
 import {Fragment, ReactNode} from "react";
 import {Close as CloseIcon, Refresh as RefreshIcon, Save as SaveIcon} from "@mui/icons-material";
-import {omit} from "lodash";
-import {ApplyDefaultFormDialogPropsProps, FormSubmitButtonProps} from "../types";
+
+import {ApplyDefaultFormDialogPropsProps, FormButtonProps} from "../types";
 
 export function applyDefaultFormDialogProps(
   {resetProps, submitProps, gridProps, cancelProps, variant = "iconText"}: ApplyDefaultFormDialogPropsProps
 ) {
-  // Max Attempts
-  const maxAttempts = submitProps?.maxAttempts || Infinity;
-  const hasMaxAttempts = isFinite(maxAttempts) && maxAttempts > 0;
 
   // Grid Container
   const gridContainerProps = {
@@ -31,9 +28,8 @@ export function applyDefaultFormDialogProps(
       </Fragment>
     );
   const resetButtonProps = {
-    keepCount: hasMaxAttempts,
     ...(resetChildren ? {children: resetChildren} : {}),
-    ...omit(resetProps, "disabled"),
+    ...resetProps,
   };
 
   // Cancel Button
@@ -51,7 +47,7 @@ export function applyDefaultFormDialogProps(
   };
 
   // Submit Button
-  let submitChildren: Partial<FormSubmitButtonProps> = {};
+  let submitChildren: Partial<FormButtonProps> = {};
   if (variant == "icon")
     submitChildren = {children: <></>, altIcon: <SaveIcon/>};
   if (variant == "iconText")

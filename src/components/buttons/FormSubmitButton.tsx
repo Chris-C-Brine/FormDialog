@@ -1,13 +1,12 @@
 // src/components/buttons/FormSubmitButton.tsx
-import { Badge } from "@mui/material";
-import { LoadingButton} from "./LoadingButton";
-import { memo } from "react";
-import { useFormDialog } from "../../hooks";
-import {useFormState} from "react-hook-form-mui";
-import type {FormSubmitButtonProps} from "../../types";
+import {LoadingButton} from "./LoadingButton";
+import {memo} from "react";
+import {useFormButton} from "../../hooks";
+import type {FormButtonProps} from "../../types";
+import {disabledWhileLoading} from "../../utils";
 
 /**
- * A "submit button" for forms with loading state, attempt tracking and form context awareness
+ * A "submit button" for forms with loading state, attempt tracking, and form context awareness
  *
  * This component extends the LoadingButton with form-specific features:
  * - Automatically displays loading state during form submission
@@ -23,52 +22,36 @@ import type {FormSubmitButtonProps} from "../../types";
  *
  *
  * @example
- * // With custom text and max attempts
- * <FormSubmitButton maxAttempts={3}>
- *   Submit Form
- * </FormSubmitButton>
- *
- * @example
- * // With visible attempt counter and custom props
+ * // With custom text and props
  * <FormSubmitButton
- *   showAttempts
  *   color="secondary"
  *   fullWidth
  * >
  *   Save Changes
  * </FormSubmitButton>
  */
-export const FormSubmitButton = memo(function ({
-  showAttempts,
-  maxAttempts,
-  children = "Save",
-  ...props
-}: FormSubmitButtonProps) {
-  const formState = useFormState();
-  const { disabled: disabledForm } = useFormDialog();
-  const disabled = formState.isSubmitting || formState.isLoading || props.disabled || disabledForm;
-  const hasMaxAttempts = maxAttempts && isFinite(maxAttempts);
+export const FormSubmitButton = memo(
+  function (
+    {
+      children = "Save",
+      ...props
+    }: FormButtonProps) {
+    const {formState, dialogState: {disabled: disabledForm}} = useFormButton();
 
-  return (
-    <LoadingButton
-      loading={formState.isSubmitting || formState.isLoading}
-      variant="contained"
-      type="submit"
-      size="large"
-      disabled={disabled}
-      {...props}
-    >
-      {
-        <Badge
-          badgeContent={formState.submitCount || (formState.disabled ? maxAttempts : undefined)}
-          color={disabled ? "error" : "warning"}
-          invisible={!hasMaxAttempts && !showAttempts}
-        >
-          {children}
-        </Badge>
-      }
-    </LoadingButton>
-  );
-});
+    const disabled = disabledWhileLoading({formState, disabledForm})
+
+    return (
+      <LoadingButton
+        loading={formState.isSubmitting || formState.isLoading}
+        variant="contained"
+        type="submit"
+        size="large"
+        disabled={disabled}
+        {...props}
+      >
+        {children}
+      </LoadingButton>
+    );
+  });
 
 FormSubmitButton.displayName = "FormSubmitButton";

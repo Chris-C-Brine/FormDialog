@@ -4,10 +4,10 @@ import {BaseDialog} from "./BaseDialog";
 import {PaperForm} from "../forms/PaperForm";
 import {type FieldValues} from "react-hook-form-mui";
 import {IconButton, type PaperProps} from "@mui/material";
+import type {SxProps, Theme} from "@mui/material/styles";
 import {FormDialogProvider} from "../../state/FormDialogProvider";
-import {merge} from "lodash";
 import {Close as CloseIcon} from "@mui/icons-material";
-import {FormDialogProps} from "../../types";
+import {FormDialogProps, BaseDialogProps} from "../../types";
 
 /**
  * A dialog component specialized for forms with integrated context providers
@@ -33,31 +33,46 @@ import {FormDialogProps} from "../../types";
 export const FormDialog = function <T extends FieldValues>(
   {formProps, children, open, onClose, ...dialogProps}: FormDialogProps<T>
 ) {
+  const mergeSx = (base: SxProps<Theme>, override?: SxProps<Theme>) => {
+    if (!override) return base;
+    return Array.isArray(override) ? [base, ...override] : [base, override];
+  };
+
   const PaperComponent = useCallback(
     (props: PaperProps) => <PaperForm  formProps={formProps} {...props} />,
     [formProps]
   );
 
-  const baseDialogProps = useMemo(() => merge(
-    {
-      actionsProps: {sx: {pt: 2.5}},
-      contentProps: {
-        sx: {
-          display: "flex",
-          justifyContent: "center",
-          boxSizing: "border-box",
-          maxHeight: `calc(100vh - 235px)`, // 235 estimate using H4 title & default FormDialogActions
-        },
-      },
-    },
-    dialogProps
-  ), [dialogProps]);
+  const baseDialogProps: BaseDialogProps = useMemo(() => {
+    const actionsDefaultSx = {pt: 2.5};
+    const actionsProps = {
+      ...dialogProps?.actionsProps,
+      sx: mergeSx(actionsDefaultSx, dialogProps?.actionsProps?.sx),
+    };
+
+    const contentDefaultSx = {
+      display: "flex",
+      justifyContent: "center",
+      boxSizing: "border-box",
+      maxHeight: `calc(100vh - 235px)`, // 235 estimate using H4 title & default FormDialogActions
+    };
+    const contentProps = {
+      ...dialogProps?.contentProps,
+      sx: mergeSx(contentDefaultSx, dialogProps?.contentProps?.sx),
+    };
+
+    return {
+      ...dialogProps,
+      open,
+      actionsProps,
+      contentProps,
+    };
+  }, [dialogProps, open]);
 
   return (
     <FormDialogProvider open={open} closeDialog={onClose}>
       <BaseDialog
         PaperComponent={PaperComponent}
-        open={open}
         onClose={onClose}
         closeButton={
           <IconButton

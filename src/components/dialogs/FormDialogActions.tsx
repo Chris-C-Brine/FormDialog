@@ -5,7 +5,6 @@ import {FormCancelButton} from "../buttons/FormCancelButton";
 import {FormResetButton} from "../buttons/FormResetButton";
 import {FormSubmitButton} from "../buttons/FormSubmitButton";
 import {GridSpacer} from "../GridSpacer";
-import {useMaxAttempts} from "../../hooks";
 import {applyDefaultFormDialogProps} from "../../utils";
 import {FormDialogActionsProps} from "../../types";
 
@@ -35,8 +34,7 @@ import {FormDialogActionsProps} from "../../types";
  * @example
  * // With maximum attempts and customized buttons
  * <FormDialogActions
- *   submitProps={{ maxAttempts: 3, children: "Save Changes" }}
- *   resetProps={{ formKey: "user-profile" }}
+ *   submitProps={{ children: "Save Changes" }}
  * />
  *
  * @example
@@ -58,8 +56,6 @@ export const FormDialogActions: FC<FormDialogActionsProps> = (
     removeResetButton = false,
     gridProps
   }) => {
-  // Disable the form when the count exceeds the maxAttempts
-  useMaxAttempts({maxAttempts: submitProps?.maxAttempts || Infinity});
 
   // Apply default props to the buttons and grid container
   const {gridContainerProps, cancelButtonProps, resetButtonProps, submitButtonProps} =

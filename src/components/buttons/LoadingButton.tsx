@@ -12,8 +12,8 @@ import {LoadingButtonProps} from "../../types";
  * - Automatically sizes the spinner based on the current theme's font size
  *
  * The loading state can be controlled through the `loading` prop:
- * - When `loading` is false, the button shows a circular progress indicator
- * - When `loading` is true or undefined, the button shows its normal content
+ * - When `loading` is true, the button shows a circular progress indicator
+ * - When `loading` is false or undefined, the button shows its normal content
  *
  * @example
  * // Basic usage
