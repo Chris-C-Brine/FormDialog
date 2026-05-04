@@ -1,5 +1,5 @@
-import { Grid } from "@mui/material";
-import type { FC } from "react";
+import {Grid} from "@mui/material";
+import type {FC} from "react";
 
 /**
  * A utility component that creates flexible space within Grid layouts
@@ -41,4 +41,4 @@ import type { FC } from "react";
  *   </Grid>
  * </Grid>
  */
-export const GridSpacer: FC = () => <Grid flex="1 0 0" sx={{w: 0}} />;
+export const GridSpacer: FC = () => <Grid sx={{w: 0, flex: "1 0 0"}}/>;
