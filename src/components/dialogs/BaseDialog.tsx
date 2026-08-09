@@ -2,10 +2,7 @@
 import type { FC } from "react";
 import { DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import { BlackoutDialog } from "./BlackoutDialog";
-import {BaseDialogProps} from "../../types";
-
-
-
+import { BaseDialogProps } from "../../types";
 
 /**
  * A flexible dialog component with standardized structure and styling
@@ -47,12 +44,9 @@ export const BaseDialog: FC<BaseDialogProps> = ({
   id,
   actions = null,
   actionsProps,
-    ...props
+  ...props
 }) => (
-  <BlackoutDialog
-    id={id}
-    {...props}
-  >
+  <BlackoutDialog id={id} {...props}>
     {title && <DialogTitle {...titleProps}>{title}</DialogTitle>} {closeButton}
     {children && <DialogContent {...contentProps}>{children}</DialogContent>}
     {actions && <DialogActions {...actionsProps}>{actions}</DialogActions>}

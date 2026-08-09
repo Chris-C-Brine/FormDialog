@@ -1,22 +1,20 @@
 // src/components/BlackoutDialog.tsx
-import {Dialog} from "@mui/material";
-import {type FC} from "react";
-import {BlackoutDialogProps} from "../../types";
+import { Dialog } from "@mui/material";
+import { type FC } from "react";
+import { BlackoutDialogProps } from "../../types";
 
 /**
  * A component for rendering a modal dialog with an optional blackout effect.
  */
-export const BlackoutDialog: FC<BlackoutDialogProps> = (
-  {
-    open = false,
-    blackout = false,
-    id = "blackout-dialog",
-    children,
-    sx,
-    ...props
-  }
-) => {
-  const sxProps = blackout ? {...sx, backgroundColor: "black"} : sx;
+export const BlackoutDialog: FC<BlackoutDialogProps> = ({
+  open = false,
+  blackout = false,
+  id = "blackout-dialog",
+  children,
+  sx,
+  ...props
+}) => {
+  const sxProps = blackout ? { ...sx, backgroundColor: "black" } : sx;
 
   /**
    * 1) When you open a dialog via a button, the button's ancestor gets aria-hidden, presumably so that

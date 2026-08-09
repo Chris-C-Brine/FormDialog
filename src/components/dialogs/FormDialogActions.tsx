@@ -1,13 +1,12 @@
 // src/components/FormDialogActions.tsx
-import {Grid} from "@mui/material";
-import type {FC} from "react";
-import {FormCancelButton} from "../buttons/FormCancelButton";
-import {FormResetButton} from "../buttons/FormResetButton";
-import {FormSubmitButton} from "../buttons/FormSubmitButton";
-import {GridSpacer} from "../GridSpacer";
-import {applyDefaultFormDialogProps} from "../../utils";
-import {FormDialogActionsProps} from "../../types";
-
+import { Grid } from "@mui/material";
+import type { FC } from "react";
+import { FormCancelButton } from "../buttons/FormCancelButton";
+import { FormResetButton } from "../buttons/FormResetButton";
+import { FormSubmitButton } from "../buttons/FormSubmitButton";
+import { GridSpacer } from "../GridSpacer";
+import { applyDefaultFormDialogProps } from "../../utils";
+import { FormDialogActionsProps } from "../../types";
 
 /**
  * Standard set of form dialog action buttons with consistent styling and behavior
@@ -45,31 +44,38 @@ import {FormDialogActionsProps} from "../../types";
  *   gridProps={{ justifyContent: "center", mt: 3 }}
  * />
  */
-export const FormDialogActions: FC<FormDialogActionsProps> = (
-  {
+export const FormDialogActions: FC<FormDialogActionsProps> = ({
+  resetProps,
+  submitProps,
+  cancelProps,
+  children,
+  variant,
+  removeCancelButton = false,
+  removeResetButton = false,
+  gridProps,
+}) => {
+  // Apply default props to the buttons and grid container
+  const { gridContainerProps, cancelButtonProps, resetButtonProps, submitButtonProps } = applyDefaultFormDialogProps({
     resetProps,
     submitProps,
     cancelProps,
-    children,
+    gridProps,
     variant,
-    removeCancelButton = false,
-    removeResetButton = false,
-    gridProps
-  }) => {
-
-  // Apply default props to the buttons and grid container
-  const {gridContainerProps, cancelButtonProps, resetButtonProps, submitButtonProps} =
-    applyDefaultFormDialogProps({resetProps, submitProps, cancelProps, gridProps, variant});
+  });
 
   return (
     <Grid container {...gridContainerProps}>
-      {!removeCancelButton && <Grid>
+      {!removeCancelButton && (
+        <Grid>
           <FormCancelButton {...cancelButtonProps} />
-      </Grid>}
-      {!removeResetButton && <Grid>
+        </Grid>
+      )}
+      {!removeResetButton && (
+        <Grid>
           <FormResetButton {...resetButtonProps} />
-      </Grid>}
-      {children ?? <GridSpacer/>}
+        </Grid>
+      )}
+      {children ?? <GridSpacer />}
       <Grid>
         <FormSubmitButton {...submitButtonProps} />
       </Grid>
