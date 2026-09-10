@@ -1,6 +1,6 @@
 {
   "name": "@chris-c-brine/form-dialog",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Easy MUI Form Dialogs with react-hook-form!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
