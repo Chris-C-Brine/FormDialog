@@ -4,7 +4,8 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "ignoreDeprecations": "6.0",
-    "types": ["node", "react", "react-dom"]
+    "types": ["node", "react", "react-dom"],
+    "inlineSources": true
   },
   "include": ["src", "LICENSE"],
   "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]
