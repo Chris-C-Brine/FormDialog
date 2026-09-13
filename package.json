@@ -1,6 +1,6 @@
 {
   "name": "@chris-c-brine/form-dialog",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Easy MUI Form Dialogs with react-hook-form!",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,7 +10,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "clean": "node --eval \"require('fs').rmSync('./dist', {recursive: true, force: true})\"",
+    "clean": "node -e \"require('fs').rmSync('./dist', {recursive: true, force: true})\"",
     "build": "npm run clean && rollup -c",
     "prepare": "npm run build"
   },
